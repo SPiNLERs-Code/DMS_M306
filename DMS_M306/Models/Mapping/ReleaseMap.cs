@@ -12,6 +12,10 @@ namespace DMS_M306.Models.Mapping
         {
             // Primary Key
             this.HasKey(t => t.Id);
+            // Foreign Key
+            this.HasRequired(t => t.LastModifiedBy).WithMany(t => t.LastModiefiedByReleases).HasForeignKey(t => t.LastModifiedById);
+            this.HasRequired(t => t.ReleasedBy).WithMany(t => t.Releases).HasForeignKey(t => t.ReleasedById);
+            this.HasRequired(t => t.RootFile).WithMany(t => t.Releases).HasForeignKey(t => t.RootFileId);
             // Table & Column Mappings
             this.ToTable("Release");
             this.Property(t => t.Id).HasColumnName("Id");
@@ -20,11 +24,11 @@ namespace DMS_M306.Models.Mapping
 
             // Relationships
             this.HasRequired(x => x.LastModifiedBy)
-                .WithMany(x => x.LastModiefiedByReleases).HasForeignKey(x => x.LastModifiedBy.Id).WillCascadeOnDelete(false);
+                .WithMany(x => x.LastModiefiedByReleases).HasForeignKey(x => x.LastModifiedById).WillCascadeOnDelete(false);
             this.HasRequired(x => x.ReleasedBy)
-                .WithMany(x => x.Releases).HasForeignKey(x => x.ReleasedBy.Id).WillCascadeOnDelete(false);
+                .WithMany(x => x.Releases).HasForeignKey(x => x.ReleasedById).WillCascadeOnDelete(false);
             this.HasRequired(x => x.RootFile)
-                .WithMany(x => x.Releases).HasForeignKey(x => x.RootFile.Id).WillCascadeOnDelete(false);
+                .WithMany(x => x.Releases).HasForeignKey(x => x.RootFileId).WillCascadeOnDelete(false);
         }
 
     }

@@ -12,6 +12,11 @@ namespace DMS_M306.Models.Mapping
         {
             // Primary Key
             this.HasKey(t => t.Id);
+
+            // Foreign Key
+            this.HasRequired(t => t.ChangedBy).WithMany(t => t.Changes).HasForeignKey(t => t.ChangedById);
+            this.HasRequired(t => t.ChangedFile).WithMany(t => t.Changes).HasForeignKey(t => t.ChangedFileId);
+
             // Table & Column Mappings
             this.ToTable("Change");
             this.Property(t => t.Id).HasColumnName("Id");
@@ -20,9 +25,9 @@ namespace DMS_M306.Models.Mapping
 
             // Relationships
             this.HasRequired(x => x.ChangedBy)
-                .WithMany(x => x.Changes).HasForeignKey(x => x.ChangedBy.Id).WillCascadeOnDelete(false);
+                .WithMany(x => x.Changes).HasForeignKey(x => x.ChangedById).WillCascadeOnDelete(false);
             this.HasRequired(x => x.ChangedFile)
-                .WithMany(x => x.Changes).HasForeignKey(x => x.ChangedFile.Id).WillCascadeOnDelete(false);
+                .WithMany(x => x.Changes).HasForeignKey(x => x.ChangedFileId).WillCascadeOnDelete(false);
         }
     }
 }

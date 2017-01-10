@@ -20,9 +20,15 @@ namespace DMS_M306.Models
 
         public PhysicalStorage PhysicalStorage { get; set; }
 
+        public int PhysicalStorageId { get; set; }
+
         public User CreatedBy { get; set; }
 
+        public int CreatedById { get; set; }
+
         public User LastModifiedBy { get; set; }
+
+        public int LastModifiedById { get; set; }
 
         public FileStorageType StorageType { get; set; }
 

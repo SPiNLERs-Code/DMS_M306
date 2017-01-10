@@ -9,7 +9,7 @@ namespace DMS_M306.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(DMS_M306.DatabaseContext.DMSEntities context)

@@ -11,7 +11,11 @@ namespace DMS_M306.Models
 
         public File ChangedFile { get; set; }
 
+        public int ChangedFileId { get; set; }
+
         public User ChangedBy { get; set; }
+
+        public int ChangedById { get; set; }
 
         public DateTime ChangeDate { get; set; }
 

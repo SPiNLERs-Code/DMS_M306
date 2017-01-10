@@ -12,6 +12,10 @@ namespace DMS_M306.Models.Mapping
         {
             // Primary Key
             this.HasKey(t => t.Id);
+            // Foreign Key
+            this.HasRequired(t => t.CreatedBy).WithMany(t => t.CreatedFiles).HasForeignKey(t => t.CreatedById);
+            this.HasRequired(t => t.LastModifiedBy).WithMany(t => t.LastModifiedFiles).HasForeignKey(t => t.LastModifiedById);
+            this.HasRequired(t => t.PhysicalStorage).WithMany(t => t.Files).HasForeignKey(t => t.PhysicalStorageId);
             // Table & Column Mappings
             this.ToTable("File");
             this.Property(t => t.Id).HasColumnName("Id");
@@ -25,11 +29,11 @@ namespace DMS_M306.Models.Mapping
 
             // Relationships
             this.HasRequired(x => x.CreatedBy)
-                .WithMany(x => x.CreatedFiles).HasForeignKey(x => x.CreatedBy.Id).WillCascadeOnDelete(false);
+                .WithMany(x => x.CreatedFiles).HasForeignKey(x => x.CreatedById).WillCascadeOnDelete(false);
             this.HasRequired(x => x.LastModifiedBy)
-                .WithMany(x => x.LastModifiedFiles).HasForeignKey(x => x.LastModifiedBy.Id).WillCascadeOnDelete(false);
+                .WithMany(x => x.LastModifiedFiles).HasForeignKey(x => x.LastModifiedById).WillCascadeOnDelete(false);
             this.HasRequired(x => x.PhysicalStorage)
-                .WithMany(x => x.Files).HasForeignKey(x => x.PhysicalStorage.Id).WillCascadeOnDelete(false);
+                .WithMany(x => x.Files).HasForeignKey(x => x.PhysicalStorageId).WillCascadeOnDelete(false);
         }
     
     }
