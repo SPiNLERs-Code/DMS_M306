@@ -30,5 +30,9 @@ namespace DMS_M306.Models
 
         public FileStatus Status { get; set; }
 
+        public List<Change> Changes { get; set; }
+
+        public List<Release> Releases { get; set; }
+
     }
 }

@@ -12,5 +12,7 @@ namespace DMS_M306.Models
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        public List<File> Files { get; set; }
     }
 }

@@ -26,5 +26,15 @@ namespace DMS_M306.Models
 
         public UserRoles Role { get; set; }
 
+        public List<Change> Changes { get; set; }
+
+        public List<File> CreatedFiles { get; set; }
+
+        public List<Release> Releases { get; set; }
+
+        public List<Release> LastModiefiedByReleases { get; set; }
+
+        public List<File> LastModifiedFiles { get; set; }
+
     }
 }

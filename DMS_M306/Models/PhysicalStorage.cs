@@ -14,5 +14,7 @@ namespace DMS_M306.Models
         public string RoomId { get; set; }
 
         public string CabinetId { get; set; }
+
+        public List<File> Files { get; set; }
     }
 }
