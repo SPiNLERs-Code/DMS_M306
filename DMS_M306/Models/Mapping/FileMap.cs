@@ -21,6 +21,7 @@ namespace DMS_M306.Models.Mapping
             this.ToTable("File");
             this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.Class).HasColumnName("Class");
+            this.Property(t => t.StorageName).HasColumnName("StorageName");
             this.Property(t => t.CreateDate).HasColumnName("CreateDate");
             this.Property(t => t.Description).HasColumnName("Description");
             this.Property(t => t.LastModified).HasColumnName("LastModified");
