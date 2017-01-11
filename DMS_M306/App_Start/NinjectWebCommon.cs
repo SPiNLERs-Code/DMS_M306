@@ -6,11 +6,14 @@ using DMS_M306.DatabaseContext;
 using DMS_M306.Interfaces;
 using DMS_M306.Interfaces.Repositories;
 using DMS_M306.Repositories;
+using DMS_M306.Services;
+using DMS_M306.Services.Interfaces;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Extensions.NamedScope;
 using Ninject.Web.Common;
 using System;
+using System.Data.Entity;
 using System.Web;
 using WebActivatorEx;
 
@@ -74,16 +77,19 @@ namespace DMS_M306.App_Start
         /// </param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<IDatabaseInitializer<DMSEntities>>().To<CreateDatabaseIfNotExist>();
+
             kernel.Bind<IDbContextFactory<DMSEntities>>().To<DbContextFactory>().InCallScope();
             kernel.Bind<IDbContextManager>().To<DbContextManager<DMSEntities>>().InCallScope();
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InCallScope();
 
             kernel.Bind<IChangeRepository>().To<ChangeRepository>().InCallScope();
             kernel.Bind<IFileCategoryRepository>().To<FileCategoryRepository>().InCallScope();
-            kernel.Bind<IFileRepository>().To<FileRepository>().InCallScope();
+            kernel.Bind<IFileRepository>().To<FileRepository>();
             kernel.Bind<IUserRepository>().To<UserRepository>().InCallScope();
             kernel.Bind<IPhysicalStorageRepository>().To<PhysicalStorageRepository>().InCallScope();
             kernel.Bind<IReleaseRepository>().To<ReleaseRepository>().InCallScope();
+            kernel.Bind<ICodeService>().To<QRCodeService>().InCallScope();
         }
     }
 }

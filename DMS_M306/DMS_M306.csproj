@@ -97,6 +97,10 @@
       <HintPath>..\packages\Ninject.Web.Common.3.2.3.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Ninject.Web.Mvc, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.MVC5.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -158,6 +162,14 @@
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="zxing, Version=0.14.0.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.14.0.1\lib\net40\zxing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.14.0.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.14.0.1\lib\net40\zxing.presentation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
@@ -214,8 +226,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DatabaseContext\CreateDatabaseIfModelChanges.cs" />
     <Compile Include="DatabaseContext\DbContextFactory.cs" />
     <Compile Include="DatabaseContext\DbContextManager.cs" />
     <Compile Include="DatabaseContext\DMSEntities.cs" />
@@ -227,6 +241,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\QRCodeHelper.cs" />
     <Compile Include="Interfaces\IDbContextFactory.cs" />
     <Compile Include="Interfaces\IDbContextManager.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
@@ -261,7 +276,11 @@
     <Compile Include="Repositories\ReleaseRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Services\Interfaces\ICodeService.cs" />
+    <Compile Include="Services\QRCodeService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\File\FileViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -337,10 +356,12 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\File\UploadFile.cshtml" />
+    <Content Include="Views\File\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ViewModels\" />
+    <Folder Include="UploadedFiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

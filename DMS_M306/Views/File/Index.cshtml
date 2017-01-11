@@ -1,0 +1,34 @@
+﻿@model DMS_M306.ViewModels.File.FileViewModel
+
+@using (Html.BeginForm("UploadFile", "File", FormMethod.Post,
+                                                          new { enctype = "multipart/form-data" }))
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>New File</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="BirthDay">@Html.LabelFor(m => m.Name):</label>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="BirthDay">File:</label>
+                    <div class="col-md-10">
+                        <input id="fileToUpload" type="file" class="file form-control" name="fileToUpload">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <input type="submit" value="Upload" class="btn" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+}

@@ -40,5 +40,9 @@ namespace DMS_M306.Models
 
         public List<Release> Releases { get; set; }
 
+        public FileCategory Category { get; set; }
+
+        public int CategoryId { get; set; }
+
     }
 }
