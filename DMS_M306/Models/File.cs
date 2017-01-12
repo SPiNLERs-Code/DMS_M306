@@ -22,7 +22,7 @@ namespace DMS_M306.Models
 
         public PhysicalStorage PhysicalStorage { get; set; }
 
-        public int PhysicalStorageId { get; set; }
+        public int? PhysicalStorageId { get; set; }
 
         public User CreatedBy { get; set; }
 

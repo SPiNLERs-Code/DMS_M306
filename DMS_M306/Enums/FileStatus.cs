@@ -7,8 +7,8 @@ namespace DMS_M306.Enums
 {
     public enum FileStatus
     {
-        Active,
-        Inactive,
-        Outdated
+        Active = 1,
+        Inactive = 2,
+        Outdated = 3
     }
 }

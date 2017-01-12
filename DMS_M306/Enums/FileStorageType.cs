@@ -7,7 +7,7 @@ namespace DMS_M306.Enums
 {
     public enum FileStorageType
     {
-        PhysicalStorage,
-        CloudStorage
+        PhysicalStorage = 1,
+        CloudStorage = 2
     }
 }

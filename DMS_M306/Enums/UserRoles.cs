@@ -7,8 +7,8 @@ namespace DMS_M306.Enums
 {
     public enum UserRoles
     {
-        User,
-        Management,
-        DepartmentManager
+        User = 1,
+        Management = 2,
+        DepartmentManager = 3
     }
 }

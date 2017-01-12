@@ -1,9 +1,0 @@
-﻿@model DMS_M306.ViewModels.File.FileViewModel
-
-
-@using DMS_M306.Helpers
-
-@if (Model.Name != "")
-{
-    @Html.GenerateQrCode(Model.Name, "Code", 400, 1)
-}

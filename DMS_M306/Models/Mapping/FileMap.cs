@@ -15,7 +15,6 @@ namespace DMS_M306.Models.Mapping
             // Foreign Key
             this.HasRequired(t => t.CreatedBy).WithMany(t => t.CreatedFiles).HasForeignKey(t => t.CreatedById);
             this.HasRequired(t => t.LastModifiedBy).WithMany(t => t.LastModifiedFiles).HasForeignKey(t => t.LastModifiedById);
-            this.HasRequired(t => t.PhysicalStorage).WithMany(t => t.Files).HasForeignKey(t => t.PhysicalStorageId);
             this.HasRequired(t => t.Category).WithMany(t => t.Files).HasForeignKey(t => t.CategoryId);
             // Table & Column Mappings
             this.ToTable("File");
@@ -34,10 +33,11 @@ namespace DMS_M306.Models.Mapping
                 .WithMany(x => x.CreatedFiles).HasForeignKey(x => x.CreatedById).WillCascadeOnDelete(false);
             this.HasRequired(x => x.LastModifiedBy)
                 .WithMany(x => x.LastModifiedFiles).HasForeignKey(x => x.LastModifiedById).WillCascadeOnDelete(false);
-            this.HasRequired(x => x.PhysicalStorage)
-                .WithMany(x => x.Files).HasForeignKey(x => x.PhysicalStorageId).WillCascadeOnDelete(false);
             this.HasRequired(x => x.Category)
                 .WithMany(x => x.Files).HasForeignKey(x => x.CategoryId).WillCascadeOnDelete(false);
+
+            this.HasOptional(x => x.PhysicalStorage)
+               .WithMany(x => x.Files).HasForeignKey(x => x.PhysicalStorageId).WillCascadeOnDelete(false);
         }
     
     }

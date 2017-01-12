@@ -1,4 +1,4 @@
-﻿@model DMS_M306.ViewModels.File.FileViewModel
+﻿@model DMS_M306.ViewModels.File.CreateFileViewModel
 
 @using (Html.BeginForm("UploadFile", "File", FormMethod.Post,
                                                           new { enctype = "multipart/form-data" }))
@@ -15,6 +15,41 @@
                         @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="BirthDay">@Html.LabelFor(m => m.Description):</label>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="BirthDay">@Html.LabelFor(m => m.Class):</label>
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor( x => x.Class, "Select My Type", new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="BirthDay">@Html.LabelFor(m => m.Status):</label>
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(x => x.Status, "Select My Type", new { @class = "form-control" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="BirthDay">@Html.LabelFor(m => m.StorageType):</label>
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(x => x.StorageType, "Select My Type", new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="BirthDay">@Html.LabelFor(m => m.CategoryId):</label>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.CategoryId, Model.Categories , "-- Select Status --", new { @class = "form-control" })
+                    </div>
+                </div>
+                
                 <div class="form-group">
                     <label class="control-label col-md-2" for="BirthDay">File:</label>
                     <div class="col-md-10">

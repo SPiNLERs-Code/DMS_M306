@@ -7,8 +7,8 @@ namespace DMS_M306.Enums
 {
     public enum FileClass
     {
-        Public,
-        Internal,
-        Private
+        Public = 1,
+        Internal = 2,
+        Private = 3
     }
 }

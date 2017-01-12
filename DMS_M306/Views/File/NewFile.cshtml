@@ -1,0 +1,119 @@
+﻿@model DMS_M306.ViewModels.File.CreateFileViewModel
+@using DMS_M306.Helpers
+
+
+@helper DisplayErrorString(string ErrorString)
+{
+if (!String.IsNullOrWhiteSpace(ErrorString))
+{
+    <span class="field-validation-error text-danger">@ErrorString</span>
+}
+}
+
+@using (Html.BeginForm("NewFile", "File", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>New File</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Name, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Description, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Class, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(x => x.Class, "Select My Type", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Class, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Status, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(x => x.Status, "Select My Type", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.StorageType, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(x => x.StorageType, "Select My Type", new { @class = "form-control", @id = "physicalStorageSelction" })
+                        @Html.ValidationMessageFor(model => model.StorageType, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div id="physicalStorageInfos">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.PhysicalStorageBuildingId, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.PhysicalStorageBuildingId, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.PhysicalStorageBuildingId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.PhysicalStorageRoomId, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.PhysicalStorageRoomId, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.PhysicalStorageRoomId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.PhysicalStorageCabinetId, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.PhysicalStorageCabinetId, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.PhysicalStorageCabinetId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.CategoryId, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.CategoryId, Model.Categories, "-- Select Status --", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">File:</label>
+                    <div class="col-md-10">
+                        <input id="fileToUpload" type="file" class="file form-control" name="fileToUpload">
+                        @DisplayErrorString(Model.FormInformation)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <input type="submit" value="Upload" class="btn" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+}
+
+@if (Model.Name != "" && Model.Name != null)
+{
+    @Html.GenerateQrCode(Model.Name, "Code", 400, 1)
+}
+
+@section scripts
+{
+    <script type="text/javascript" src="@Url.Content("/Scripts/File/PhysicalStorage.js")"></script>
+}
