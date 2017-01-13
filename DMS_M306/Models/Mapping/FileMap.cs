@@ -12,10 +12,6 @@ namespace DMS_M306.Models.Mapping
         {
             // Primary Key
             this.HasKey(t => t.Id);
-            // Foreign Key
-            this.HasRequired(t => t.CreatedBy).WithMany(t => t.CreatedFiles).HasForeignKey(t => t.CreatedById);
-            this.HasRequired(t => t.LastModifiedBy).WithMany(t => t.LastModifiedFiles).HasForeignKey(t => t.LastModifiedById);
-            this.HasRequired(t => t.Category).WithMany(t => t.Files).HasForeignKey(t => t.CategoryId);
             // Table & Column Mappings
             this.ToTable("File");
             this.Property(t => t.Id).HasColumnName("Id");

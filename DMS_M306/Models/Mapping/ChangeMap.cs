@@ -13,10 +13,6 @@ namespace DMS_M306.Models.Mapping
             // Primary Key
             this.HasKey(t => t.Id);
 
-            // Foreign Key
-            this.HasRequired(t => t.ChangedBy).WithMany(t => t.Changes).HasForeignKey(t => t.ChangedById);
-            this.HasRequired(t => t.ChangedFile).WithMany(t => t.Changes).HasForeignKey(t => t.ChangedFileId);
-
             // Table & Column Mappings
             this.ToTable("Change");
             this.Property(t => t.Id).HasColumnName("Id");
