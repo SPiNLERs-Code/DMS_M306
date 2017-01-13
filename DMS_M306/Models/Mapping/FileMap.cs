@@ -27,6 +27,7 @@ namespace DMS_M306.Models.Mapping
             this.Property(t => t.Name).HasColumnName("Name");
             this.Property(t => t.Status).HasColumnName("Status");
             this.Property(t => t.StorageType).HasColumnName("StorageType");
+            this.Property(t => t.FileEnding).HasColumnName("FileEnding");
 
             // Relationships
             this.HasRequired(x => x.CreatedBy)

@@ -291,7 +291,10 @@
     <Compile Include="ViewModels\Change\ChangeViewModel.cs" />
     <Compile Include="ViewModels\FileCategory\FileCategoryViewModel.cs" />
     <Compile Include="ViewModels\File\CreateFileViewModel.cs" />
+    <Compile Include="ViewModels\File\FileDetailsViewModel.cs" />
+    <Compile Include="ViewModels\File\FilesViewModel.cs" />
     <Compile Include="ViewModels\File\FileViewModel.cs" />
+    <Compile Include="ViewModels\File\ReleaseViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\PhysicalStorage\PhysicalStorageViewModel.cs" />
     <Compile Include="ViewModels\Release\ReleaseViewModel.cs" />
@@ -378,11 +381,12 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\File\NewFile.cshtml" />
+    <Content Include="Views\File\Create.cshtml" />
     <Content Include="Views\File\Index.cshtml" />
     <Content Include="Views\Category\Create.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\Delete.cshtml" />
+    <Content Include="Views\File\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

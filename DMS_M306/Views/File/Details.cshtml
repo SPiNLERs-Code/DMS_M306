@@ -1,0 +1,42 @@
+﻿@model DMS_M306.ViewModels.File.FileDetailsViewModel
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+@helper ReleaseIdFormat(int id)
+{
+String.Format("0000", id.ToString());
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <b class="lead">Releases</b><span class=" pull-right btn-group">
+            <a href="/File/Create" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="Top" title="Add category"></span></a>
+        </span>
+
+        <div class="clearfix"></div>
+    </div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Releases</th>
+                <th>Createt By</th>
+                <th>Modified By</th>
+            </tr>
+            @foreach (var item in Model.Releases)
+            {
+                <tr>
+                    <td><a href="/File/Details/@item.Id">ReleaseIdFormat(@item.Id)</a></td>
+                    <td>@item.Description</td>
+                    <td>@item.LastModifiedBy</td>
+                    <td>@item.ReleasedBy</td>
+                    <td>@item.ReleaseDate.ToString("dd.MM.yy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -10,7 +10,7 @@ if (!String.IsNullOrWhiteSpace(ErrorString))
 }
 }
 
-@using (Html.BeginForm("NewFile", "File", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Create", "File", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="panel panel-default">
         <div class="panel-heading">

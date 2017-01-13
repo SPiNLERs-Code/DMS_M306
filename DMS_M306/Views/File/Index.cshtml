@@ -1,69 +1,77 @@
-﻿@model DMS_M306.ViewModels.File.CreateFileViewModel
+﻿@model DMS_M306.ViewModels.File.FilesViewModel
+@using DMS_M306.Enums
 
-@using (Html.BeginForm("UploadFile", "File", FormMethod.Post,
-                                                          new { enctype = "multipart/form-data" }))
+@helper ClockAndText(string text, DateTime date)
 {
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3>New File</h3>
-        </div>
-        <div class="panel-body">
-            <div class="form-horizontal">
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="BirthDay">@Html.LabelFor(m => m.Name):</label>
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="BirthDay">@Html.LabelFor(m => m.Description):</label>
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="BirthDay">@Html.LabelFor(m => m.Class):</label>
-                    <div class="col-md-10">
-                        @Html.EnumDropDownListFor( x => x.Class, "Select My Type", new { @class = "form-control" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="BirthDay">@Html.LabelFor(m => m.Status):</label>
-                    <div class="col-md-10">
-                        @Html.EnumDropDownListFor(x => x.Status, "Select My Type", new { @class = "form-control" })
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="BirthDay">@Html.LabelFor(m => m.StorageType):</label>
-                    <div class="col-md-10">
-                        @Html.EnumDropDownListFor(x => x.StorageType, "Select My Type", new { @class = "form-control" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="BirthDay">@Html.LabelFor(m => m.CategoryId):</label>
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.CategoryId, Model.Categories , "-- Select Status --", new { @class = "form-control" })
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="BirthDay">File:</label>
-                    <div class="col-md-10">
-                        <input id="fileToUpload" type="file" class="file form-control" name="fileToUpload">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-10 col-md-offset-2">
-                        <input type="submit" value="Upload" class="btn" />
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
+    @text <i class="glyphicon glyphicon-time" data-toggle="tooltip" data-placement="Top" title="@date.ToString("dd.MM.yy")"></i>
 }
+
+@helper StatusIcon(FileStatus filestatus)
+{
+switch (filestatus)
+{
+    case FileStatus.Active:
+            <i class="glyphicon glyphicon-play text-success" data-toggle="tooltip" data-placement="Top" title="Active"></i>
+        break;
+    case FileStatus.Inactive:
+            <i class="glyphicon glyphicon-pause text-warning" data-toggle="tooltip" data-placement="Top" title="Inactive"></i>
+        break;
+    case FileStatus.Outdated:
+            <i class="glyphicon glyphicon-stop text-danger" data-toggle="tooltip" data-placement="Top" title="Outdated"></i>
+        break;
+    default:
+        break;
+}
+
+}
+
+@helper TypeIcon(FileStorageType fileType)
+{
+switch (fileType)
+{
+    case FileStorageType.CloudStorage:
+            <i class="glyphicon glyphicon-hdd" data-toggle="tooltip" data-placement="Top" title="@FileStorageType.CloudStorage.ToString()"></i>
+        break;
+    case FileStorageType.PhysicalStorage:
+            <i class="glyphicon glyphicon-file" data-toggle="tooltip" data-placement="Top" title="@FileStorageType.PhysicalStorage.ToString()"></i>
+        break;
+    default:
+        break;
+}
+
+}
+
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <b class="lead">Newest files</b><span class=" pull-right btn-group">
+            <a href="/File/Create" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="Top" title="Add category"></span></a>
+        </span>
+
+        <div class="clearfix"></div>
+    </div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Releases</th>
+                <th>Createt By</th>
+                <th>Modified By</th>
+                <th width="120px">Status / Type</th>
+            </tr>
+            @foreach (var item in Model.Files)
+            {
+                <tr>
+                    <td><a href="/File/Details/@item.Id">@item.Name</a></td>
+                    <td>@item.Description</td>
+                    <td>@item.ReleaseCount</td>
+                    <td>@ClockAndText(item.CreatedBy, item.CreateDate)</td>
+                    <td>@ClockAndText(item.LastModifiedBy, item.LastModified)</td>
+                    <td class="text-center">@StatusIcon(item.Status) @TypeIcon(item.StorageType)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
