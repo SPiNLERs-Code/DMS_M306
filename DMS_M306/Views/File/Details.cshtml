@@ -1,18 +1,50 @@
 ﻿@model DMS_M306.ViewModels.File.FileDetailsViewModel
+@using DMS_M306.Helpers
+
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
 @helper ReleaseIdFormat(int id)
 {
-String.Format("0000", id.ToString());
+id.ToString("####");
 }
+
+@helper DetailRow(string detailName, string detail)
+{
+    <tr>
+        <th width="160px">@detailName:</th>
+        <td>@detail</td>
+    </tr>
+}
+
+
+
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <b class="lead">Releases</b><span class=" pull-right btn-group">
+        <b class="lead">Details - @Model.Name</b>
+
+        <div class="clearfix"></div>
+    </div>
+    <table class="table">
+        <tbody>
+            @DetailRow(nameof(Model.Description), Model.Description)
+            @DetailRow(nameof(Model.Category), Model.Category)
+            @DetailRow(nameof(Model.Class), Model.Class.ToString())
+            @DetailRow(nameof(Model.Status), Model.Status.ToString())
+            @DetailRow(nameof(Model.StorageType), Model.StorageType.ToString())
+            @DetailRow(nameof(Model.LastModifiedBy), Model.LastModifiedBy)
+            @DetailRow(nameof(Model.LastModified), Model.LastModified.ToString("dd.MM.yy"))
+            @DetailRow(nameof(Model.CreatedBy), Model.CreatedBy)
+            @DetailRow(nameof(Model.CreateDate), Model.CreateDate.ToString("dd.MM.yy"))
+    </table>
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <b class="lead">Releases</b><span class="pull-right btn-group">
             <a href="/File/Create" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="Top" title="Add category"></span></a>
         </span>
 
@@ -27,16 +59,23 @@ String.Format("0000", id.ToString());
                 <th>Createt By</th>
                 <th>Modified By</th>
             </tr>
-            @foreach (var item in Model.Releases)
+            @if (Model.Releases != null)
             {
-                <tr>
-                    <td><a href="/File/Details/@item.Id">ReleaseIdFormat(@item.Id)</a></td>
-                    <td>@item.Description</td>
-                    <td>@item.LastModifiedBy</td>
-                    <td>@item.ReleasedBy</td>
-                    <td>@item.ReleaseDate.ToString("dd.MM.yy")</td>
-                </tr>
+                foreach (var item in Model.Releases)
+                {
+                    <tr>
+                        <td><a href="/File/Details/@item.Id">ReleaseIdFormat(@item.Id)</a></td>
+                        <td>@item.Description</td>
+                        <td>@item.LastModifiedBy</td>
+                        <td>@item.ReleasedBy</td>
+                        <td>@item.ReleaseDate.ToString("dd.MM.yy")</td>
+                    </tr>
+                }
             }
         </tbody>
     </table>
+</div>
+<div class="text-center">
+
+    @Html.GenerateFileCode(Model.Id)
 </div>

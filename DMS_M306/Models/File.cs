@@ -22,15 +22,15 @@ namespace DMS_M306.Models
 
         public DateTime LastModified { get; set; }
 
-        public PhysicalStorage PhysicalStorage { get; set; }
+        public virtual PhysicalStorage PhysicalStorage { get; set; }
 
         public int? PhysicalStorageId { get; set; }
 
-        public User CreatedBy { get; set; }
+        public virtual User CreatedBy { get; set; }
 
         public int CreatedById { get; set; }
 
-        public User LastModifiedBy { get; set; }
+        public virtual User LastModifiedBy { get; set; }
 
         public int LastModifiedById { get; set; }
 
@@ -40,11 +40,11 @@ namespace DMS_M306.Models
 
         public FileStatus Status { get; set; }
 
-        public List<Change> Changes { get; set; }
+        public virtual List<Change> Changes { get; set; }
 
-        public List<Release> Releases { get; set; }
+        public virtual List<Release> Releases { get; set; }
 
-        public FileCategory Category { get; set; }
+        public virtual FileCategory Category { get; set; }
 
         public int CategoryId { get; set; }
 

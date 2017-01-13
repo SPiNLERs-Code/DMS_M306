@@ -28,5 +28,13 @@ namespace DMS_M306.Helpers
                 }
             }
         }
+
+        public static IHtmlString GenerateFileCode(this HtmlHelper html, int fileId)
+        {
+            string releaseDeafault = "0000";
+            var hexString = fileId.ToString("X6");
+            string qrString = hexString + "-" + releaseDeafault;
+            return GenerateQrCode(html, qrString, "DMS-File-QR", 400, 1);
+        }
     }
 }

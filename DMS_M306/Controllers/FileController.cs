@@ -207,7 +207,7 @@ namespace DMS_M306.Controllers
                 LastModified = file.LastModified,
                 LastModifiedBy = file.LastModifiedBy.FullName,
                 Name = file.Name,
-                ReleaseCount = file.Releases.Count(),
+                ReleaseCount = file.Releases != null ? file.Releases.Count : 0,
                 Status = file.Status,
                 StorageType = file.StorageType,
                 Releases = GetReleases(file.Releases)
