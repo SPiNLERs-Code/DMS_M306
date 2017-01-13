@@ -38,9 +38,9 @@ namespace DMS_M306.Controllers
         }
 
         [HttpGet]
-        public ActionResult Details(int Id)
+        public ActionResult Details(int? Id)
         {
-            if(Id == 0) return new HttpNotFoundResult();
+            if(Id == null||Id == 0) return new HttpNotFoundResult();
             var file = _fileRepository.Get(x => x.Id == Id).FirstOrDefault();
             if (file == null) return new HttpNotFoundResult();
 

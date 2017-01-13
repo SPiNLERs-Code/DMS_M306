@@ -235,6 +235,7 @@
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ReleaseController.cs" />
     <Compile Include="DatabaseContext\CreateDatabaseIfModelChanges.cs" />
     <Compile Include="DatabaseContext\DbContextFactory.cs" />
     <Compile Include="DatabaseContext\DbContextManager.cs" />
@@ -297,7 +298,7 @@
     <Compile Include="ViewModels\File\ReleaseViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\PhysicalStorage\PhysicalStorageViewModel.cs" />
-    <Compile Include="ViewModels\Release\ReleaseViewModel.cs" />
+    <Compile Include="ViewModels\Release\CreateForViewModel.cs" />
     <Compile Include="ViewModels\User\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -387,6 +388,7 @@
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\Delete.cshtml" />
     <Content Include="Views\File\Details.cshtml" />
+    <Content Include="Views\Release\CreateFor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
