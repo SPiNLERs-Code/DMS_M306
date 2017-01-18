@@ -1,9 +1,11 @@
-﻿using DMS_M306.Helpers;
+﻿using DMS_M306.Enums;
+using DMS_M306.Helpers;
 using DMS_M306.Interfaces;
 using DMS_M306.Interfaces.Repositories;
 using DMS_M306.Models;
 using DMS_M306.Services;
 using DMS_M306.ViewModels.File;
+using DMS_M306.ViewModels.PhysicalStorage;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -43,7 +45,7 @@ namespace DMS_M306.Controllers
         [HttpGet]
         public ActionResult Details(int? Id)
         {
-            if(Id == null||Id == 0) return new HttpNotFoundResult();
+            if (Id == null || Id == 0) return new HttpNotFoundResult();
             var file = _fileRepository.Get(x => x.Id == Id).FirstOrDefault();
             if (file == null) return new HttpNotFoundResult();
 
@@ -90,7 +92,7 @@ namespace DMS_M306.Controllers
                 }
                 CreateFile(createFileViewModel, fileAndFolderName, category, ending);
             }
-            
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -111,7 +113,7 @@ namespace DMS_M306.Controllers
             return dataEnding;
         }
 
-        private void CreateFile(CreateFileViewModel vm, string storeName, FileCategory category,string dataEnding = "")
+        private void CreateFile(CreateFileViewModel vm, string storeName, FileCategory category, string dataEnding = "")
         {
             User currentUser = _userRepository.Get().FirstOrDefault();
             Models.File file = new Models.File()
@@ -210,17 +212,38 @@ namespace DMS_M306.Controllers
                 ReleaseCount = file.Releases != null ? file.Releases.Count : 0,
                 Status = file.Status,
                 StorageType = file.StorageType,
-                Releases = GetReleases(file.Releases)
+                Releases = GetReleases(file.Releases),
+                FileDownloadPath = GetDownLoadPath(file.StorageType, file.FileEnding, file.StorageName, file.Category),
+                PhysicalStorage = GetPhysicalStorage(file.PhysicalStorage)
             };
 
             return vm;
+        }
+
+        private PhysicalStorageViewModel GetPhysicalStorage(PhysicalStorage storage)
+        {
+            if (storage == null) return null;
+
+            return new PhysicalStorageViewModel()
+            {
+                BuildingId = storage.BuildingId,
+                CabinetId = storage.CabinetId,
+                Id = storage.Id,
+                RoomId = storage.RoomId
+            };
+        }
+
+        private string GetDownLoadPath(FileStorageType type, string filename, string fileEnding, FileCategory category)
+        {
+            if (type == FileStorageType.PhysicalStorage) return null;
+            return "";
         }
 
         private List<ReleaseViewModel> GetReleases(List<Release> releases)
         {
             List<ReleaseViewModel> allReleases = new List<ReleaseViewModel>();
 
-            foreach(var item in releases)
+            foreach (var item in releases)
             {
                 var newReleaseViewModel = new ReleaseViewModel
                 {

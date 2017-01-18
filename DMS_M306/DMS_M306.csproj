@@ -393,6 +393,9 @@
     <Content Include="Views\File\Details.cshtml" />
     <Content Include="Views\Release\CreateFor.cshtml" />
     <Content Include="Views\Release\Details.cshtml" />
+    <Content Include="Views\Shared\_FileDetails.cshtml" />
+    <Content Include="Views\Shared\_ReleasesList.cshtml" />
+    <Content Include="Views\Shared\_ReleaseDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

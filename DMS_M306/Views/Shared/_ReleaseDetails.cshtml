@@ -1,0 +1,50 @@
+﻿@model DMS_M306.ViewModels.Release.ReleaseDetailsViewModel
+@using DMS_M306.ViewModels.PhysicalStorage
+
+@helper DetailRow(string detailName, string detail)
+{
+    <tr>
+        <th width="160px">@detailName:</th>
+        <td>@detail</td>
+    </tr>
+}
+
+@helper ReleaseDownloadDetails(string downlaodPath)
+{
+    <tr>
+        <th width="160px">Download:</th>
+        <td><a href="@downlaodPath">Release</a></td>
+    </tr>
+}
+
+@helper PhysicalStorageDetails(PhysicalStorageViewModel physicalStorage)
+{
+    @DetailRow(nameof(physicalStorage.BuildingId), physicalStorage.BuildingId)
+    @DetailRow(nameof(physicalStorage.RoomId), physicalStorage.RoomId)
+    @DetailRow(nameof(physicalStorage.CabinetId), physicalStorage.CabinetId)
+}
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <b class="lead">Release Details - @Html.ActionLink(Model.RootFileName, "Details","File", new { @id = Model.RootFileId},null)</b>
+
+        <div class="clearfix"></div>
+    </div>
+    <table class="table">
+        <tbody>
+            @DetailRow(nameof(Model.ReleaseNumber), Model.ReleaseNumber.ToString("X4"))
+            @DetailRow(nameof(Model.Description), Model.Description)
+            @DetailRow(nameof(Model.LastModifiedBy), Model.LastModifiedBy)
+            @DetailRow(nameof(Model.ReleasedBy), Model.ReleasedBy)
+            @DetailRow(nameof(Model.ReleaseDate), Model.ReleaseDate.ToString("dd.MM.yy"))
+            @if (Model.ReleaseDownloadPath != null && Model.ReleaseDownloadPath != "")
+            {
+                @ReleaseDownloadDetails(Model.ReleaseDownloadPath)
+            }
+            @if (Model.PhysicalStorage != null)   
+            {
+                @PhysicalStorageDetails(Model.PhysicalStorage)
+            }
+    </table>
+</div>

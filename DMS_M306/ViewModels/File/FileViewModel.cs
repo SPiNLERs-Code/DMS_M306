@@ -37,5 +37,7 @@ namespace DMS_M306.ViewModels.File
         public int ReleaseCount { get; set; }
 
         public string Category { get; set; }
+
+        public PhysicalStorageViewModel PhysicalStorage { get; set; }
     }
 }

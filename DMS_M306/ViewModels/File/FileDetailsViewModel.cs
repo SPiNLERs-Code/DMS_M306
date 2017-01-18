@@ -8,5 +8,7 @@ namespace DMS_M306.ViewModels.File
     public class FileDetailsViewModel : FileViewModel
     {
         public List<ReleaseViewModel> Releases { get; set; }
+
+        public string FileDownloadPath { get; set; }
     }
 }

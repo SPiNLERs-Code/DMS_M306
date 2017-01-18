@@ -1,0 +1,53 @@
+﻿@model DMS_M306.ViewModels.File.FileDetailsViewModel
+@using DMS_M306.ViewModels.PhysicalStorage
+
+@helper DetailRow(string detailName, string detail)
+{
+    <tr>
+        <th width="160px">@detailName:</th>
+        <td>@detail</td>
+    </tr>
+}
+
+@helper FileDownLoadDetails(string downlaodPath)
+{
+    <tr>
+
+        <th width="160px">Download:</th>
+        <td><a href="@downlaodPath">File</a></td>
+    </tr>
+}
+
+@helper PhysicalStorageDetails(PhysicalStorageViewModel physicalStorage)
+{
+    @DetailRow(nameof(physicalStorage.BuildingId), physicalStorage.BuildingId)
+    @DetailRow(nameof(physicalStorage.RoomId), physicalStorage.RoomId)
+    @DetailRow(nameof(physicalStorage.CabinetId), physicalStorage.CabinetId)
+}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <b class="lead">Details - @Model.Name</b>
+
+        <div class="clearfix"></div>
+    </div>
+    <table class="table">
+        <tbody>
+            @DetailRow(nameof(Model.Description), Model.Description)
+            @DetailRow(nameof(Model.Category), Model.Category)
+            @DetailRow(nameof(Model.Class), Model.Class.ToString())
+            @DetailRow(nameof(Model.Status), Model.Status.ToString())
+            @DetailRow(nameof(Model.StorageType), Model.StorageType.ToString())
+            @DetailRow(nameof(Model.LastModifiedBy), Model.LastModifiedBy)
+            @DetailRow(nameof(Model.LastModified), Model.LastModified.ToString("dd.MM.yy"))
+            @DetailRow(nameof(Model.CreatedBy), Model.CreatedBy)
+            @DetailRow(nameof(Model.CreateDate), Model.CreateDate.ToString("dd.MM.yy"))
+            @if (Model.PhysicalStorage != null)
+            {
+                @PhysicalStorageDetails(Model.PhysicalStorage)
+            }
+            @if (Model.FileDownloadPath != null)
+            {
+                @FileDownLoadDetails(Model.FileDownloadPath)
+            }
+    </table>
+</div>

@@ -2,6 +2,8 @@
 using DMS_M306.Interfaces.Repositories;
 using DMS_M306.Models;
 using DMS_M306.Services;
+using DMS_M306.ViewModels.File;
+using DMS_M306.ViewModels.PhysicalStorage;
 using DMS_M306.ViewModels.Release;
 using System;
 using System.Collections.Generic;
@@ -50,7 +52,9 @@ namespace DMS_M306.Controllers
                 ReleasedBy = release.ReleasedBy.FullName,
                 RootFileId = release.RootFileId,
                 RootFileName = release.RootFile.Name,
-                ReleaseNumber = release.ReleaseNumber
+                ReleaseNumber = release.ReleaseNumber,
+                ReleaseDownloadPath = GetDownLoadPath(),
+                PhysicalStorage = GetPhysicalStorageViewModel(release.RootFile)
             };
             return View(vm);
         }
@@ -109,6 +113,23 @@ namespace DMS_M306.Controllers
                 _fileService.CopyFile(paht, originalFile, newName);
             }
             return RedirectToAction("Details", "File", new { Id = file.Id });
+        }
+
+        private PhysicalStorageViewModel GetPhysicalStorageViewModel(File rootFile)
+        {
+            if (rootFile.PhysicalStorage == null) return null;
+            return new PhysicalStorageViewModel
+            {
+                BuildingId = rootFile.PhysicalStorage.BuildingId,
+                CabinetId = rootFile.PhysicalStorage.CabinetId,
+                RoomId = rootFile.PhysicalStorage.RoomId,
+                Id = rootFile.Id
+            };
+        }
+
+        private string GetDownLoadPath()
+        {
+            return "";
         }
 
         private string GetFilePath(File file)
