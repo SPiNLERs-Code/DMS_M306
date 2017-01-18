@@ -49,7 +49,8 @@ namespace DMS_M306.Controllers
                 ReleaseDate = release.ReleaseDate,
                 ReleasedBy = release.ReleasedBy.FullName,
                 RootFileId = release.RootFileId,
-                RootFileName = release.RootFile.Name
+                RootFileName = release.RootFile.Name,
+                ReleaseNumber = release.ReleaseNumber
             };
             return View(vm);
         }
@@ -82,12 +83,15 @@ namespace DMS_M306.Controllers
             var file = _fileRepository.Get(x => x.Id == vm.FileId).FirstOrDefault();
             if (file == null) return new HttpNotFoundResult();
 
+            var releaseNumber = _releaseRepository.Get(x => x.RootFileId == vm.FileId).Select(x => x.ReleaseNumber).Max();
+            releaseNumber++;
             Release newRelease = new Release
             {
                 Description = vm.Description,
                 LastModifiedBy = file.LastModifiedBy,
                 ReleaseDate = DateTime.UtcNow,
-                ReleasedBy = _userRepository.Get().FirstOrDefault()
+                ReleasedBy = _userRepository.Get().FirstOrDefault(),
+                ReleaseNumber = releaseNumber
             };
 
             //_releaseRepository.Add(newRelease);

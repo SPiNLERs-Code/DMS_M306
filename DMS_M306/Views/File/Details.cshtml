@@ -7,7 +7,7 @@
 
 @helper ReleaseIdFormat(int id)
 {
-@id.ToString("X6")
+@id.ToString("X4")
 }
 
 @helper DetailRow(string detailName, string detail)
@@ -55,20 +55,20 @@
             <tr>
                 <th>ID</th>
                 <th>Description</th>
-                <th>Releases</th>
                 <th>Createt By</th>
-                <th>Modified By</th>
+                <th>Release Date</th>
+                <th>Released By</th>
             </tr>
             @if (Model.Releases != null)
             {
                 foreach (var item in Model.Releases)
                 {
                     <tr>
-                        <td><a href="/Release/Details/@item.Id">@ReleaseIdFormat(@item.Id)</a></td>
+                        <td><a href="/Release/Details/@item.Id">@ReleaseIdFormat(@item.ReleaseNumber)</a></td>
                         <td>@item.Description</td>
                         <td>@item.LastModifiedBy</td>
+                        <td>@item.ReleaseDate.ToString("dd.MM.yy hh:mm")</td>
                         <td>@item.ReleasedBy</td>
-                        <td>@item.ReleaseDate.ToString("dd.MM.yy")</td>
                     </tr>
                 }
             }

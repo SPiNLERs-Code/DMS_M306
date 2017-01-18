@@ -9,6 +9,8 @@ namespace DMS_M306.ViewModels.File
     {
         public int Id { get; set; }
 
+        public int ReleaseNumber { get; set; }
+
         public string LastModifiedBy { get; set; }
 
         public string ReleasedBy { get; set; }

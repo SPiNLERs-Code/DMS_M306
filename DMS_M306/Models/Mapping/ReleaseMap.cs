@@ -17,6 +17,7 @@ namespace DMS_M306.Models.Mapping
             this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.Description).HasColumnName("Description");
             this.Property(t => t.ReleaseDate).HasColumnName("ReleaseDate");
+            this.Property(t => t.ReleaseNumber).HasColumnName("ReleaseNumber");
 
             // Relationships
             this.HasRequired(x => x.LastModifiedBy)

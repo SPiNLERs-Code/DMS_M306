@@ -9,6 +9,8 @@ namespace DMS_M306.Models
     {
         public int Id { get; set; }
 
+        public int ReleaseNumber { get; set; }
+
         public virtual File RootFile { get; set; }
 
         public int RootFileId { get; set; }

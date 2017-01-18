@@ -220,11 +220,12 @@ namespace DMS_M306.Controllers
                     Id = item.Id,
                     LastModifiedBy = item.LastModifiedBy.FullName,
                     ReleaseDate = item.ReleaseDate,
-                    ReleasedBy = item.ReleasedBy.FullName
+                    ReleasedBy = item.ReleasedBy.FullName,
+                    ReleaseNumber = item.ReleaseNumber
                 };
                 allReleases.Add(newReleaseViewModel);
             }
-
+            allReleases = allReleases.OrderByDescending(x => x.ReleaseNumber).ToList();
             return allReleases;
         }
     }
