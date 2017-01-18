@@ -9,11 +9,11 @@ namespace DMS_M306.Models
     {
         public int Id { get; set; }
 
-        public File ChangedFile { get; set; }
+        public virtual File ChangedFile { get; set; }
 
         public int ChangedFileId { get; set; }
 
-        public User ChangedBy { get; set; }
+        public virtual User ChangedBy { get; set; }
 
         public int ChangedById { get; set; }
 

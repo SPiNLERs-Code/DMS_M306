@@ -24,17 +24,17 @@ namespace DMS_M306.Models
 
         public string Email { get; set; }
 
-        public UserRoles Role { get; set; }
+        public virtual UserRoles Role { get; set; }
 
-        public List<Change> Changes { get; set; }
+        public virtual List<Change> Changes { get; set; }
 
-        public List<File> CreatedFiles { get; set; }
+        public virtual List<File> CreatedFiles { get; set; }
 
-        public List<Release> Releases { get; set; }
+        public virtual List<Release> Releases { get; set; }
 
-        public List<Release> LastModiefiedByReleases { get; set; }
+        public virtual List<Release> LastModiefiedByReleases { get; set; }
 
-        public List<File> LastModifiedFiles { get; set; }
+        public virtual List<File> LastModifiedFiles { get; set; }
 
     }
 }

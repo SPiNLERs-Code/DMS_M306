@@ -31,10 +31,15 @@ namespace DMS_M306.Helpers
 
         public static IHtmlString GenerateFileCode(this HtmlHelper html, int fileId)
         {
-            string releaseDeafault = "0000";
+            string releaseDeafault = "00000000";
             var hexString = fileId.ToString("X6");
             string qrString = hexString + "-" + releaseDeafault;
             return GenerateQrCode(html, qrString, "DMS-File-QR", 400, 1);
+        }
+
+        public static IHtmlString GenerateQrFromString(this HtmlHelper html, string stringForQr)
+        {
+            return GenerateQrCode(html, stringForQr, "DMS-File-QR", 400, 1);
         }
     }
 }

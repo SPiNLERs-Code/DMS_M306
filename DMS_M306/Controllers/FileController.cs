@@ -2,6 +2,7 @@
 using DMS_M306.Interfaces;
 using DMS_M306.Interfaces.Repositories;
 using DMS_M306.Models;
+using DMS_M306.Services;
 using DMS_M306.ViewModels.File;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace DMS_M306.Controllers
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
         private const string FileStoreDirectory = "/UploadedFiles/";
+        private FileService _fileService;
 
         public FileController(IFileRepository fileRepository, IFileCategoryRepository fileCategoryRepository, IUserRepository userRepositor, IUnitOfWork unitOfWork)
         {
@@ -27,6 +29,7 @@ namespace DMS_M306.Controllers
             _fileCategoryRepository = fileCategoryRepository;
             _userRepository = userRepositor;
             _unitOfWork = unitOfWork;
+            _fileService = FileService.GetInstance();
         }
 
         [HttpGet]
@@ -88,13 +91,14 @@ namespace DMS_M306.Controllers
             string dataEnding = "";
             foreach (string upload in request.Files)
             {
-                if (Request.Files[upload].ContentLength == 0) continue;
+                HttpPostedFileWrapper requesFile = (HttpPostedFileWrapper)request.Files[upload];
+                if (requesFile.ContentLength == 0) continue;
                 string pathToSave = Server.MapPath(folder);
-                dataEnding = request.Files[upload].FileName.Split('.').LastOrDefault();
+                dataEnding = requesFile.FileName.Split('.').LastOrDefault();
+
                 if (String.IsNullOrWhiteSpace(dataEnding)) return "";
                 string filename = newName + "." + dataEnding.ToLower();
-                Directory.CreateDirectory(Server.MapPath(folder));
-                Request.Files[upload].SaveAs(Path.Combine(pathToSave, filename));
+                _fileService.SaveFile(requesFile, pathToSave, filename);
             }
             return dataEnding;
         }
@@ -149,18 +153,6 @@ namespace DMS_M306.Controllers
                 itemList.Add(new SelectListItem { Value = category.Id.ToString(), Text = category.Name });
             }
             return itemList;
-        }
-
-        private string GetStoreName(string oldName, string newName, string timestamp, bool hasEnding = true)
-        {
-            string dataEnding = oldName.Split('.').LastOrDefault();
-            if (dataEnding == null) return null;
-            string newFileName = newName + "_" + timestamp;
-            if (hasEnding)
-            {
-                newFileName += "." + dataEnding;
-            }
-            return newFileName;
         }
 
         private List<FileViewModel> GetTopFiles(int count)
@@ -233,7 +225,7 @@ namespace DMS_M306.Controllers
                 allReleases.Add(newReleaseViewModel);
             }
 
-            return null;
+            return allReleases;
         }
     }
 }

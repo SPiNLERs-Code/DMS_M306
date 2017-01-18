@@ -284,7 +284,9 @@
     <Compile Include="Repositories\ReleaseRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Services\FileService.cs" />
     <Compile Include="Services\Interfaces\ICodeService.cs" />
+    <Compile Include="Services\Interfaces\IFileService.cs" />
     <Compile Include="Services\QRCodeService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Category\CategoriesViewModel.cs" />
@@ -299,6 +301,7 @@
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\PhysicalStorage\PhysicalStorageViewModel.cs" />
     <Compile Include="ViewModels\Release\CreateForViewModel.cs" />
+    <Compile Include="ViewModels\Release\ReleaseDetailsViewModel.cs" />
     <Compile Include="ViewModels\User\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -389,6 +392,7 @@
     <Content Include="Views\Category\Delete.cshtml" />
     <Content Include="Views\File\Details.cshtml" />
     <Content Include="Views\Release\CreateFor.cshtml" />
+    <Content Include="Views\Release\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

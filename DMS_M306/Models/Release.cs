@@ -9,15 +9,15 @@ namespace DMS_M306.Models
     {
         public int Id { get; set; }
 
-        public File RootFile { get; set; }
+        public virtual File RootFile { get; set; }
 
         public int RootFileId { get; set; }
 
-        public User LastModifiedBy { get; set; }
+        public virtual User LastModifiedBy { get; set; }
 
         public int LastModifiedById { get; set; }
 
-        public User ReleasedBy { get; set; }
+        public virtual User ReleasedBy { get; set; }
 
         public int ReleasedById { get; set; }
 
