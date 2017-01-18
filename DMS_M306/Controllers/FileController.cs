@@ -76,13 +76,21 @@ namespace DMS_M306.Controllers
 
             string folderToStore = FileStoreDirectory + "/" + category.Name + "/" + fileAndFolderName;
 
-            string ending = SaveFileReturnDataEnding(fileAndFolderName, folderToStore, Request);
-
-            if (String.IsNullOrWhiteSpace(ending))
+            if (createFileViewModel.IsFilePhysical)
             {
-                return View(GetFullCreateViewModel(createFileViewModel, "Please select a valide file."));
+                CreateFile(createFileViewModel, fileAndFolderName, category);
             }
-            CreateFile(createFileViewModel, fileAndFolderName, ending, category);
+            else
+            {
+                string ending = SaveFileReturnDataEnding(fileAndFolderName, folderToStore, Request);
+
+                if (String.IsNullOrWhiteSpace(ending))
+                {
+                    return View(GetFullCreateViewModel(createFileViewModel, "Please select a valide file."));
+                }
+                CreateFile(createFileViewModel, fileAndFolderName, category, ending);
+            }
+            
             return RedirectToAction("Index", "Home");
         }
 
@@ -103,7 +111,7 @@ namespace DMS_M306.Controllers
             return dataEnding;
         }
 
-        private void CreateFile(CreateFileViewModel vm, string storeName, string dataEnding, FileCategory category)
+        private void CreateFile(CreateFileViewModel vm, string storeName, FileCategory category,string dataEnding = "")
         {
             User currentUser = _userRepository.Get().FirstOrDefault();
             Models.File file = new Models.File()

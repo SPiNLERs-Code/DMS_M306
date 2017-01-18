@@ -83,7 +83,8 @@ namespace DMS_M306.Controllers
             var file = _fileRepository.Get(x => x.Id == vm.FileId).FirstOrDefault();
             if (file == null) return new HttpNotFoundResult();
 
-            var releaseNumber = _releaseRepository.Get(x => x.RootFileId == vm.FileId).Select(x => x.ReleaseNumber).Max();
+            var allReleaseNumber = _releaseRepository.Get(x => x.RootFileId == vm.FileId).Select(x => x.ReleaseNumber).ToList();
+            var releaseNumber = allReleaseNumber.Count == 0 ? 0 : allReleaseNumber.Max();
             releaseNumber++;
             Release newRelease = new Release
             {
@@ -99,13 +100,15 @@ namespace DMS_M306.Controllers
 
             _fileRepository.Update(file);
             _unitOfWork.SaveChanges();
-            string paht = GetFilePath(file);
-            string originalFile = file.StorageName + "." + file.FileEnding;
-            string releaseEnding = file.Releases.OrderBy(x => x.Id).LastOrDefault().Id.ToString("X8");
-            string newName = file.StorageName + "_" + releaseEnding + "." + file.FileEnding;
-            _fileService.CopyFile(paht, originalFile, newName);
-
-            return RedirectToAction("Details", "File");
+            if(file.StorageType != Enums.FileStorageType.PhysicalStorage)
+            {
+                string paht = GetFilePath(file);
+                string originalFile = file.StorageName + "." + file.FileEnding;
+                string releaseEnding = file.Releases.OrderBy(x => x.Id).LastOrDefault().Id.ToString("X8");
+                string newName = file.StorageName + "_" + releaseEnding + "." + file.FileEnding;
+                _fileService.CopyFile(paht, originalFile, newName);
+            }
+            return RedirectToAction("Details", "File", new { Id = file.Id });
         }
 
         private string GetFilePath(File file)
