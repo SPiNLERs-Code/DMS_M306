@@ -9,11 +9,11 @@
     </tr>
 }
 
-@helper ReleaseDownloadDetails(string downlaodPath)
+@helper ReleaseDownloadDetails(int releaseId)
 {
     <tr>
         <th width="160px">Download:</th>
-        <td><a href="@downlaodPath">Release</a></td>
+        <td><a href="/Download/DownloadRelease/@releaseId">Release</a></td>
     </tr>
 }
 
@@ -38,13 +38,13 @@
             @DetailRow(nameof(Model.LastModifiedBy), Model.LastModifiedBy)
             @DetailRow(nameof(Model.ReleasedBy), Model.ReleasedBy)
             @DetailRow(nameof(Model.ReleaseDate), Model.ReleaseDate.ToString("dd.MM.yy"))
-            @if (Model.ReleaseDownloadPath != null && Model.ReleaseDownloadPath != "")
-            {
-                @ReleaseDownloadDetails(Model.ReleaseDownloadPath)
-            }
             @if (Model.PhysicalStorage != null)   
             {
                 @PhysicalStorageDetails(Model.PhysicalStorage)
+            }
+            else
+            {
+                @ReleaseDownloadDetails(Model.Id)
             }
     </table>
 </div>

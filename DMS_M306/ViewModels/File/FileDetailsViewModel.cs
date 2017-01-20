@@ -11,7 +11,6 @@ namespace DMS_M306.ViewModels.File
         public List<ReleaseViewModel> Releases { get; set; }
 
         public List<ChangeViewModel> Changes { get; set; }
-
-        public string FileDownloadPath { get; set; }
+        
     }
 }

@@ -4,6 +4,11 @@
 {
     @id.ToString("X4")
 }
+
+@helper DownloadLink(int id)
+{
+    <a href="/Download/DownloadRelease/@id">Download</a>
+}
 <div class="panel panel-default">
     <div class="panel-heading">
         <b class="lead">Releases</b><span class="pull-right btn-group">
@@ -20,6 +25,10 @@
                 <th>Createt By</th>
                 <th>Release Date</th>
                 <th>Released By</th>
+                @if (Model.PhysicalStorage == null)
+                {
+                    <th></th>
+                }
             </tr>
             @if (Model.Releases != null)
             {
@@ -31,6 +40,11 @@
                         <td>@item.LastModifiedBy</td>
                         <td>@item.ReleaseDate.ToString("dd.MM.yy hh:mm")</td>
                         <td>@item.ReleasedBy</td>
+                        @if (Model.PhysicalStorage == null)
+                        {
+                            <td>@DownloadLink(item.Id)</td>
+                        }
+                        
                     </tr>
                 }
             }

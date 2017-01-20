@@ -310,7 +310,6 @@ namespace DMS_M306.Controllers
                 StorageType = file.StorageType,
                 Releases = GetReleases(file.Releases),
                 Changes = GetChanges(file.Changes),
-                FileDownloadPath = GetDownLoadPath(file.StorageType, file.FileEnding, file.StorageName, file.Category),
                 PhysicalStorage = GetPhysicalStorage(file.PhysicalStorage)
             };
 

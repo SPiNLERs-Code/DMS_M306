@@ -9,12 +9,12 @@
     </tr>
 }
 
-@helper FileDownLoadDetails(string downlaodPath)
+@helper FileDownLoadDetails(int downlaodId)
 {
     <tr>
 
         <th width="160px">Download:</th>
-        <td><a href="@downlaodPath">File</a></td>
+        <td><a href="/Download/DownloadFile/@downlaodId">File</a></td>
     </tr>
 }
 
@@ -45,9 +45,9 @@
             {
                 @PhysicalStorageDetails(Model.PhysicalStorage)
             }
-            @if (Model.FileDownloadPath != null)
+            else
             {
-                @FileDownLoadDetails(Model.FileDownloadPath)
+                @FileDownLoadDetails(Model.Id)
             }
     </table>
     <div class="panel-body">

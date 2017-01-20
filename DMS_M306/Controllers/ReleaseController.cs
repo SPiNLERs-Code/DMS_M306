@@ -53,7 +53,6 @@ namespace DMS_M306.Controllers
                 RootFileId = release.RootFileId,
                 RootFileName = release.RootFile.Name,
                 ReleaseNumber = release.ReleaseNumber,
-                ReleaseDownloadPath = GetDownLoadPath(),
                 PhysicalStorage = GetPhysicalStorageViewModel(release.RootFile)
             };
             return View(vm);
@@ -108,7 +107,7 @@ namespace DMS_M306.Controllers
             {
                 string paht = GetFilePath(file);
                 string originalFile = file.StorageName + "." + file.FileEnding;
-                string releaseEnding = file.Releases.OrderBy(x => x.Id).LastOrDefault().Id.ToString("X8");
+                string releaseEnding = file.Releases.OrderBy(x => x.Id).LastOrDefault().ReleaseNumber.ToString("X4");
                 string newName = file.StorageName + "_" + releaseEnding + "." + file.FileEnding;
                 _fileService.CopyFile(paht, originalFile, newName);
             }
@@ -125,11 +124,6 @@ namespace DMS_M306.Controllers
                 RoomId = rootFile.PhysicalStorage.RoomId,
                 Id = rootFile.Id
             };
-        }
-
-        private string GetDownLoadPath()
-        {
-            return "";
         }
 
         private string GetFilePath(File file)
