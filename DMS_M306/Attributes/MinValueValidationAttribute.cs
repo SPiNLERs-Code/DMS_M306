@@ -17,6 +17,7 @@ namespace DMS_M306.Attributes
 
         public override bool IsValid(object value)
         {
+            if (value == null) return false;
             return (int)value >= _maxValue;
         }
     }

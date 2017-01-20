@@ -1,0 +1,28 @@
+﻿@model DMS_M306.ViewModels.File.FileDetailsViewModel
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <b class="lead">Changes</b>
+
+    </div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Change Date</th>
+                <th>Changed By</th>
+                <th>Description</th>
+            </tr>
+            @if (Model.Changes != null)
+            {
+                foreach (var item in Model.Changes)
+                {
+                    <tr>
+                        <td>@item.ChangeDate.ToString("dd.MM.yy hh:mm")</td>
+                        <td>@item.ChangedBy</td>
+                        <td>@item.Description</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

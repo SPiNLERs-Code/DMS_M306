@@ -4,6 +4,7 @@ using DMS_M306.Interfaces;
 using DMS_M306.Interfaces.Repositories;
 using DMS_M306.Models;
 using DMS_M306.Services;
+using DMS_M306.ViewModels.Change;
 using DMS_M306.ViewModels.File;
 using DMS_M306.ViewModels.PhysicalStorage;
 using System;
@@ -43,6 +44,28 @@ namespace DMS_M306.Controllers
         }
 
         [HttpGet]
+        public ActionResult Edit(int? Id)
+        {
+            if (Id == null || Id == 0) return new HttpNotFoundResult();
+            var file = _fileRepository.Get(x => x.Id == Id).FirstOrDefault();
+            if (file == null) return new HttpNotFoundResult();
+            EditFileViewModel vm = new EditFileViewModel()
+            {
+                CategoryName = file.Category.Name,
+                Class = file.Class,
+                Description = file.Description,
+                Name = file.Name,
+                PhysicalStorageBuildingId = file.PhysicalStorage != null ? file.PhysicalStorage.BuildingId : "",
+                PhysicalStorageCabinetId = file.PhysicalStorage != null ? file.PhysicalStorage.CabinetId : "",
+                PhysicalStorageRoomId = file.PhysicalStorage != null ? file.PhysicalStorage.RoomId : "",
+                Status = file.Status,
+                StorageType = file.StorageType
+            };
+            vm = GetFullEditViewModel(vm, file, "");
+            return View(vm);
+        }
+
+        [HttpGet]
         public ActionResult Details(int? Id)
         {
             if (Id == null || Id == 0) return new HttpNotFoundResult();
@@ -52,6 +75,68 @@ namespace DMS_M306.Controllers
             FileDetailsViewModel vm = GetFileDetails(file);
 
             return View(vm);
+        }
+        [HttpPost]
+        public ActionResult Edit(EditFileViewModel vm)
+        {
+            bool isContentChanged = false;
+            bool isFileChanged = false;
+            if (vm.Id == 0) return new HttpNotFoundResult();
+            var file = _fileRepository.Get(x => x.Id == vm.Id).FirstOrDefault();
+            if (file == null) return new HttpNotFoundResult();
+            if (!ModelState.IsValid) return View(GetFullEditViewModel(vm, file, ""));
+
+
+            isContentChanged = IsContentChanged(file, vm);
+
+            DateTime dateNow = DateTime.UtcNow;
+            Models.User currentUser = _userRepository.Get().FirstOrDefault();
+
+            if (isContentChanged)
+            {
+                file.Class = vm.Class;
+                file.Description = vm.Description;
+                file.LastModified = dateNow;
+                file.Status = vm.Status;
+                if (file.PhysicalStorage != null)
+                {
+                    file.PhysicalStorage.BuildingId = vm.PhysicalStorageBuildingId;
+                    file.PhysicalStorage.CabinetId = vm.PhysicalStorageCabinetId;
+                    file.PhysicalStorage.RoomId = vm.PhysicalStorageRoomId;
+                }
+            }
+            if (file.StorageType != FileStorageType.PhysicalStorage)
+            {
+                var uploadState = GetFileChangeState(file, Request);
+
+                if (uploadState == FileUploadStates.WrongDateType)
+                {
+                    vm.FormInformation = "Wrong data type.";
+                    return View(vm);
+                }
+
+                if (uploadState == FileUploadStates.Success)
+                {
+                    isFileChanged = true;
+                    file.LastModified = dateNow;
+                }
+            }
+
+            if(!isFileChanged && !isContentChanged) return RedirectToAction("Details", "File", new { @Id = file.Id });
+
+            Change change = new Change()
+            {
+                ChangeDate = dateNow,
+                ChangedBy = currentUser,
+                Description = GetChangeDescription(isFileChanged, isContentChanged)
+            };
+
+            file.Changes.Add(change);
+
+            _fileRepository.Update(file);
+            _unitOfWork.SaveChanges();
+
+            return RedirectToAction("Details", "File", new { @Id = file.Id });
         }
 
         [HttpGet]
@@ -154,6 +239,17 @@ namespace DMS_M306.Controllers
             return vm;
         }
 
+        private EditFileViewModel GetFullEditViewModel(EditFileViewModel vm, Models.File file, string ErrorMessage)
+        {
+            vm.CategoryName = file.Category.Name;
+            vm.Name = file.Name;
+            vm.FormInformation = ErrorMessage;
+            vm.StorageType = file.StorageType;
+            vm.FileId = file.Id;
+            vm.FileType = file.FileEnding;
+            return vm;
+        }
+
         private List<SelectListItem> GetCategories()
         {
             var categories = _fileCategoryRepository.Get().ToList();
@@ -213,6 +309,7 @@ namespace DMS_M306.Controllers
                 Status = file.Status,
                 StorageType = file.StorageType,
                 Releases = GetReleases(file.Releases),
+                Changes = GetChanges(file.Changes),
                 FileDownloadPath = GetDownLoadPath(file.StorageType, file.FileEnding, file.StorageName, file.Category),
                 PhysicalStorage = GetPhysicalStorage(file.PhysicalStorage)
             };
@@ -258,6 +355,72 @@ namespace DMS_M306.Controllers
             }
             allReleases = allReleases.OrderByDescending(x => x.ReleaseNumber).ToList();
             return allReleases;
+        }
+
+        private List<ChangeViewModel> GetChanges(List<Change> changes)
+        {
+            List<ChangeViewModel> allReleases = new List<ChangeViewModel>();
+
+            foreach (var item in changes)
+            {
+                var newReleaseViewModel = new ChangeViewModel
+                {
+                    Description = item.Description,
+                    ChangeDate = item.ChangeDate,
+                    ChangedBy = item.ChangedBy.FullName,
+                    FileId = item.Id
+                };
+                allReleases.Add(newReleaseViewModel);
+            }
+            allReleases = allReleases.OrderByDescending(x => x.ChangeDate).ToList();
+            return allReleases;
+        }
+
+        private bool IsContentChanged(Models.File file, EditFileViewModel createViewModel)
+        {
+            if (file.Class != createViewModel.Class) return true;
+            if (file.Description != createViewModel.Description) return true;
+            if (file.Status != createViewModel.Status) return true;
+
+            if(file.PhysicalStorage != null)
+            {
+                if (file.PhysicalStorage.BuildingId != createViewModel.PhysicalStorageBuildingId) return true;
+                if (file.PhysicalStorage.CabinetId != createViewModel.PhysicalStorageCabinetId) return true;
+                if (file.PhysicalStorage.RoomId != createViewModel.PhysicalStorageRoomId) return true;
+            }
+            return false;
+        }
+        private FileUploadStates GetFileChangeState(Models.File file, HttpRequestBase request)
+        {
+            int count = 0;
+            foreach (string upload in request.Files)
+            {
+                HttpPostedFileWrapper requesFile = (HttpPostedFileWrapper)request.Files[upload];
+                if (requesFile.ContentLength == 0) continue;
+                var folder = FileStoreDirectory + file.Category.Name + "\\" + file.StorageName;
+                string pathToSave = Server.MapPath(folder);
+                var dataEnding = requesFile.FileName.Split('.').LastOrDefault();
+
+                if (String.IsNullOrWhiteSpace(dataEnding)) return FileUploadStates.WrongDateType;
+                if (dataEnding.ToLower() != file.FileEnding.ToLower()) return FileUploadStates.WrongDateType;
+
+                string filename = file.StorageName+ "." + dataEnding.ToLower();
+                _fileService.SaveFile(requesFile, pathToSave, filename);
+                count++;
+            }
+            if (count < 1)
+            {
+                return FileUploadStates.NoFile;
+            }
+            return FileUploadStates.Success;
+        }
+
+        private string GetChangeDescription(bool hasFileChanged, bool hasInfosChanged)
+        {
+            if (hasFileChanged && hasInfosChanged) return "Infos and file changed";
+            if (hasFileChanged) return "File changed";
+            if (hasInfosChanged) return "Infos changed";
+            return "Nothing changed";
         }
     }
 }

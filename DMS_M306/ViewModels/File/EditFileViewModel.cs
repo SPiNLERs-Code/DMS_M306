@@ -8,17 +8,17 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 
 namespace DMS_M306.ViewModels.File
 {
-    public class CreateFileViewModel
+    public class EditFileViewModel
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
-        [Required]
         [DisplayName("Name:")]
         public string Name { get; set; }
+
+        public int FileId { get; set; }
 
         [Required]
         [DisplayName("Description:")]
@@ -26,10 +26,17 @@ namespace DMS_M306.ViewModels.File
 
         public PhysicalStorageViewModel PhysicalStorage { get; set; }
 
-        [Required]
-        [MinValueValidationAttribute(1, ErrorMessage = "Das Feld \"StorageType\" ist erforderlich.")]
-        [DisplayName("Storage type:")]
         public FileStorageType StorageType { get; set; }
+
+
+        [DisplayName("StorageType:")]
+        public string StorageTypeName { get
+            {
+                return StorageType.ToString();
+            }
+        }
+        [DisplayName("FileType:")]
+        public string FileType { get; set; }
 
         [Required]
         [MinValueValidationAttribute(1, ErrorMessage = "Das Feld \"Class\" ist erforderlich.")]
@@ -37,15 +44,13 @@ namespace DMS_M306.ViewModels.File
         public FileClass Class { get; set; }
 
         [Required]
-        [MinValueValidationAttribute(1,ErrorMessage = "Das Feld \"Status\" ist erforderlich.")]
+        [MinValueValidationAttribute(1, ErrorMessage = "Das Feld \"Status\" ist erforderlich.")]
         [DisplayName("Status:")]
         public FileStatus Status { get; set; }
 
-        public List<SelectListItem> Categories { get; set; }
-
-        [Required]
+        
         [DisplayName("Category:")]
-        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
 
         public string FormInformation { get; set; }
 
@@ -57,7 +62,7 @@ namespace DMS_M306.ViewModels.File
         [DisplayName("Cabinet ID/Name:")]
         public string PhysicalStorageCabinetId { get; set; }
 
-        [RequiredIfTrue("IsFilePhysical",ErrorMessage ="")]
+        [RequiredIfTrue("IsFilePhysical", ErrorMessage = "")]
         [DisplayName("Room ID/Name:")]
         public string PhysicalStorageRoomId { get; set; }
 

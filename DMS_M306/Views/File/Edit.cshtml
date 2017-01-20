@@ -1,0 +1,125 @@
+﻿@model DMS_M306.ViewModels.File.EditFileViewModel
+
+
+@helper DisplayErrorString(string ErrorString)
+{
+if (!String.IsNullOrWhiteSpace(ErrorString))
+{
+        <span class="field-validation-error text-danger">@ErrorString</span>
+}
+}
+
+
+@using (Html.BeginForm("Edit", "File", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>Edit File</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-horizontal">
+                @Html.HiddenFor(m => m.Id)
+                @Html.HiddenFor(m => m.StorageType, new { @id = "physicalStorageSelction" })
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Name, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" , @disabled = "disabled" })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Description, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Class, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(x => x.Class, "Select My Type", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Class, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Status, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(x => x.Status, "Select My Type", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.StorageTypeName, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+
+                        @Html.TextBoxFor(m => m.StorageTypeName, new { @class = "form-control", @disabled = "disabled" })
+                    </div>
+                </div>
+                <div id="physicalStorageInfos">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.PhysicalStorageBuildingId, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.PhysicalStorageBuildingId, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.PhysicalStorageBuildingId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.PhysicalStorageRoomId, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.PhysicalStorageRoomId, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.PhysicalStorageRoomId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.PhysicalStorageCabinetId, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.PhysicalStorageCabinetId, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.PhysicalStorageCabinetId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.CategoryName, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.CategoryName, new { @class = "form-control", @disabled = "disabled" })
+                    </div>
+                </div>
+
+                <div class="form-group" id="fileTypeInfo">
+                    @Html.LabelFor(m => m.FileType, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.FileType, new { @class = "form-control", @disabled = "disabled" })
+                    </div>
+                </div>
+
+                <div class="form-group" id="fileToUploadFields">
+                    <label class="control-label col-md-2">File:</label>
+                    <div class="col-md-10">
+                        <input id="fileToUpload" type="file" class="file form-control" name="fileToUpload">
+                        @DisplayErrorString(Model.FormInformation)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <input type="submit" value="Save" class="btn btn-success" /> <a class="btn btn-default" href="/File/Details/@Model.FileId">Back to details</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+}
+
+
+
+@section scripts
+{
+    <script type="text/javascript" src="@Url.Content("/Scripts/File/PhysicalStorage.js")"></script>
+}
