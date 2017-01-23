@@ -1,5 +1,6 @@
 ﻿@model DMS_M306.ViewModels.File.FileDetailsViewModel
 @using DMS_M306.ViewModels.PhysicalStorage
+@using DMS_M306.Helpers
 
 @helper DetailRow(string detailName, string detail)
 {
@@ -27,7 +28,9 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <b class="lead">Details - @Model.Name</b>
-
+        <span style="height:30px;" class="pull-right qrcode-corner">
+            @Html.GenerateFileCode(Model.Id)
+        </span>
         <div class="clearfix"></div>
     </div>
     <table class="table">

@@ -1,5 +1,6 @@
 ﻿@model DMS_M306.ViewModels.FileRelease.ReleaseDetailsViewModel
 @using DMS_M306.ViewModels.PhysicalStorage
+@using DMS_M306.Helpers
 
 @helper DetailRow(string detailName, string detail)
 {
@@ -28,7 +29,9 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <b class="lead">Release Details - @Html.ActionLink(Model.RootFileName, "Details","File", new { @id = Model.RootFileId},null)</b>
-
+        <span style="height:30px;" class="pull-right qrcode-corner">
+            @Html.GenerateQrFromString(Model.QRString)
+        </span>
         <div class="clearfix"></div>
     </div>
     <table class="table">

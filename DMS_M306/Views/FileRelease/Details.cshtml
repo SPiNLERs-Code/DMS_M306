@@ -1,7 +1,5 @@
 ﻿@model DMS_M306.ViewModels.FileRelease.ReleaseDetailsViewModel
 
-@using DMS_M306.Helpers
-
 @{
     ViewBag.Title = "Details";
 }
@@ -13,9 +11,3 @@
 
 @Html.Partial("_ReleaseDetails", Model)
 @*@Html.Partial("_FileDetails", Model.FileDetails)*@
-
-
-<div class="text-center">
-
-    @Html.GenerateQrFromString(Model.QRString)
-</div>
