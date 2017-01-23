@@ -237,6 +237,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\FileReleaseController.cs" />
+    <Compile Include="Controllers\ScanController.cs" />
     <Compile Include="DatabaseContext\CreateDatabaseIfModelChanges.cs" />
     <Compile Include="DatabaseContext\DbContextFactory.cs" />
     <Compile Include="DatabaseContext\DbContextManager.cs" />
@@ -407,6 +408,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="UploadedFiles\" />
     <Folder Include="Views\Download\" />
+    <Folder Include="Views\Scan\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

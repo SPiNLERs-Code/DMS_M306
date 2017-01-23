@@ -1,3 +1,15 @@
-﻿@using DMS_M306.Helpers
-
-@Html.GenerateQrCode("100000000001","Code",400,1)
+﻿<div class="col-md-12">
+    <div class="col-md-5 row form-group">
+        @using (Html.BeginForm("Index", "Scan", FormMethod.Get, new { enctype = "multipart/form-data" }))
+        {
+            <div class="col-md-9">
+                <div class="input-group">
+                    <input class="form-control text-box" id="ScanString" name="ScanString" type="text" value="" placeholder="File ID: XXXXXX-XXXX" autocomplete="off">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default quickSearchButton" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </span>
+                </div>
+            </div>
+        }
+    </div>
+</div>
