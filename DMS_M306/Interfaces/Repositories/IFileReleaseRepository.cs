@@ -7,7 +7,7 @@ namespace DMS_M306.Interfaces.Repositories
 
     #endregion
 
-    public interface IReleaseRepository : IRepository<Release>
+    public interface IFileReleaseRepository : IRepository<FileRelease>
     {
     }
 }

@@ -1,0 +1,21 @@
+﻿@model DMS_M306.ViewModels.Release.ReleaseDetailsViewModel
+
+@using DMS_M306.Helpers
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@helper ReleaseIdFormat(int id)
+{
+    @id.ToString("X4")
+}
+
+@Html.Partial("_ReleaseDetails", Model)
+@*@Html.Partial("_FileDetails", Model.FileDetails)*@
+
+
+<div class="text-center">
+
+    @Html.GenerateQrFromString(Model.QRString)
+</div>

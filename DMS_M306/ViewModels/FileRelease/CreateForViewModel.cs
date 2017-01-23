@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace DMS_M306.ViewModels.Release
+namespace DMS_M306.ViewModels.FileRelease
 {
     public class CreateForViewModel
     {

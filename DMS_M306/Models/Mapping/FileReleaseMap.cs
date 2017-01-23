@@ -6,9 +6,9 @@ using System.Web;
 
 namespace DMS_M306.Models.Mapping
 {
-    public class ReleaseMap : EntityTypeConfiguration<Release>
+    public class FileReleaseMap : EntityTypeConfiguration<FileRelease>
     {
-        public ReleaseMap()
+        public FileReleaseMap()
         {
             // Primary Key
             this.HasKey(t => t.Id);

@@ -11,11 +11,11 @@ namespace DMS_M306.Controllers
     public class DownloadController : Controller
     {
         private readonly IFileRepository _fileRepository;
-        private readonly IReleaseRepository _releaseRepository;
+        private readonly IFileReleaseRepository _releaseRepository;
 
         private const string FileStoreDirectory = "/UploadedFiles/";
 
-        public DownloadController(IFileRepository fileRepository, IReleaseRepository releaseRepository)
+        public DownloadController(IFileRepository fileRepository, IFileReleaseRepository releaseRepository)
         {
             _fileRepository = fileRepository;
             _releaseRepository = releaseRepository;

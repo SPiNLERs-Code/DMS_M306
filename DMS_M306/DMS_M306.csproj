@@ -236,7 +236,7 @@
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\ReleaseController.cs" />
+    <Compile Include="Controllers\FileReleaseController.cs" />
     <Compile Include="DatabaseContext\CreateDatabaseIfModelChanges.cs" />
     <Compile Include="DatabaseContext\DbContextFactory.cs" />
     <Compile Include="DatabaseContext\DbContextManager.cs" />
@@ -259,7 +259,7 @@
     <Compile Include="Interfaces\Repositories\IFileCategoryRepository.cs" />
     <Compile Include="Interfaces\Repositories\IFileRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPhysicalStorageRepository.cs" />
-    <Compile Include="Interfaces\Repositories\IReleaseRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IFileReleaseRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRepository.cs" />
     <Compile Include="Interfaces\Repositories\IUserRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
@@ -273,17 +273,17 @@
     <Compile Include="Models\Mapping\FileCategoryMap.cs" />
     <Compile Include="Models\Mapping\FileMap.cs" />
     <Compile Include="Models\Mapping\PhysicalStorageMap.cs" />
-    <Compile Include="Models\Mapping\ReleaseMap.cs" />
+    <Compile Include="Models\Mapping\FileReleaseMap.cs" />
     <Compile Include="Models\Mapping\UserMap.cs" />
     <Compile Include="Models\PhysicalStorage.cs" />
-    <Compile Include="Models\Release.cs" />
+    <Compile Include="Models\FileRelease.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ChangeRepository.cs" />
     <Compile Include="Repositories\FileCategoryRepository.cs" />
     <Compile Include="Repositories\FileRepository.cs" />
     <Compile Include="Repositories\PhysicalStorageRepository.cs" />
-    <Compile Include="Repositories\ReleaseRepository.cs" />
+    <Compile Include="Repositories\FileReleaseRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Services\FileService.cs" />
@@ -303,8 +303,8 @@
     <Compile Include="ViewModels\File\ReleaseViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\PhysicalStorage\PhysicalStorageViewModel.cs" />
-    <Compile Include="ViewModels\Release\CreateForViewModel.cs" />
-    <Compile Include="ViewModels\Release\ReleaseDetailsViewModel.cs" />
+    <Compile Include="ViewModels\FileRelease\CreateForViewModel.cs" />
+    <Compile Include="ViewModels\FileRelease\ReleaseDetailsViewModel.cs" />
     <Compile Include="ViewModels\User\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -395,8 +395,8 @@
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\Delete.cshtml" />
     <Content Include="Views\File\Details.cshtml" />
-    <Content Include="Views\Release\CreateFor.cshtml" />
-    <Content Include="Views\Release\Details.cshtml" />
+    <Content Include="Views\FileRelease\CreateFor.cshtml" />
+    <Content Include="Views\FileRelease\Details.cshtml" />
     <Content Include="Views\Shared\_FileDetails.cshtml" />
     <Content Include="Views\Shared\_ReleasesList.cshtml" />
     <Content Include="Views\Shared\_ReleaseDetails.cshtml" />

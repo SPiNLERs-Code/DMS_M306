@@ -2,7 +2,7 @@
 using DMS_M306.ViewModels.Change;
 using DMS_M306.ViewModels.FileCategory;
 using DMS_M306.ViewModels.PhysicalStorage;
-using DMS_M306.ViewModels.Release;
+using DMS_M306.ViewModels.FileRelease;
 using DMS_M306.ViewModels.User;
 using System;
 using System.Collections.Generic;

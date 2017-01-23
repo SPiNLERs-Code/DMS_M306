@@ -30,9 +30,9 @@ namespace DMS_M306.Models
 
         public virtual List<File> CreatedFiles { get; set; }
 
-        public virtual List<Release> Releases { get; set; }
+        public virtual List<FileRelease> Releases { get; set; }
 
-        public virtual List<Release> LastModiefiedByReleases { get; set; }
+        public virtual List<FileRelease> LastModiefiedByReleases { get; set; }
 
         public virtual List<File> LastModifiedFiles { get; set; }
 

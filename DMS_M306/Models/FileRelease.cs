@@ -5,7 +5,7 @@ using System.Web;
 
 namespace DMS_M306.Models
 {
-    public class Release
+    public class FileRelease
     {
         public int Id { get; set; }
 

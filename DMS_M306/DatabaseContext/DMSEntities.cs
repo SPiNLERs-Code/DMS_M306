@@ -39,7 +39,7 @@ namespace DMS_M306.DatabaseContext
             modelBuilder.Configurations.Add(new FileCategoryMap());
             modelBuilder.Configurations.Add(new FileMap());
             modelBuilder.Configurations.Add(new PhysicalStorageMap());
-            modelBuilder.Configurations.Add(new ReleaseMap());
+            modelBuilder.Configurations.Add(new FileReleaseMap());
             modelBuilder.Configurations.Add(new UserMap());
         }
     }

@@ -3,8 +3,8 @@ using DMS_M306.Interfaces.Repositories;
 using DMS_M306.Models;
 using DMS_M306.Services;
 using DMS_M306.ViewModels.File;
+using DMS_M306.ViewModels.FileRelease;
 using DMS_M306.ViewModels.PhysicalStorage;
-using DMS_M306.ViewModels.Release;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -14,17 +14,17 @@ using System.Web.Mvc;
 
 namespace DMS_M306.Controllers
 {
-    public class ReleaseController : Controller
+    public class FileReleaseController : Controller
     {
         private readonly IFileRepository _fileRepository;
-        private readonly IReleaseRepository _releaseRepository;
+        private readonly IFileReleaseRepository _releaseRepository;
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly FileService _fileService;
 
         private const string FileStoreDirectory = "UploadedFiles";
 
-        public ReleaseController(IFileRepository fileRepository, IReleaseRepository releaseRepository, IUserRepository userRepository, IUnitOfWork unitOfWork)
+        public FileReleaseController(IFileRepository fileRepository, IFileReleaseRepository releaseRepository, IUserRepository userRepository, IUnitOfWork unitOfWork)
         {
             _fileRepository = fileRepository;
             _releaseRepository = releaseRepository;
@@ -89,7 +89,7 @@ namespace DMS_M306.Controllers
             var allReleaseNumber = _releaseRepository.Get(x => x.RootFileId == vm.FileId).Select(x => x.ReleaseNumber).ToList();
             var releaseNumber = allReleaseNumber.Count == 0 ? 0 : allReleaseNumber.Max();
             releaseNumber++;
-            Release newRelease = new Release
+            FileRelease newRelease = new FileRelease
             {
                 Description = vm.Description,
                 LastModifiedBy = file.LastModifiedBy,

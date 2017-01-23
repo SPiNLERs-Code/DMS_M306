@@ -42,7 +42,7 @@ namespace DMS_M306.Models
 
         public virtual List<Change> Changes { get; set; }
 
-        public virtual List<Release> Releases { get; set; }
+        public virtual List<FileRelease> Releases { get; set; }
 
         public virtual FileCategory Category { get; set; }
 

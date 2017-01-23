@@ -335,7 +335,7 @@ namespace DMS_M306.Controllers
             return "";
         }
 
-        private List<ReleaseViewModel> GetReleases(List<Release> releases)
+        private List<ReleaseViewModel> GetReleases(List<FileRelease> releases)
         {
             List<ReleaseViewModel> allReleases = new List<ReleaseViewModel>();
 
