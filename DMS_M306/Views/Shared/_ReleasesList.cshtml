@@ -12,7 +12,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <b class="lead">Releases</b><span class="pull-right btn-group">
-            <a href="/Release/CreateFor/@Model.Id" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="Top" title="Add category"></span></a>
+            <a href="/FileRelease/CreateFor/@Model.Id" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="Top" title="Add category"></span></a>
         </span>
 
         <div class="clearfix"></div>
@@ -35,7 +35,7 @@
                 foreach (var item in Model.Releases)
                 {
                     <tr>
-                        <td><a href="/Release/Details/@item.Id">@ReleaseIdFormat(@item.ReleaseNumber)</a></td>
+                        <td><a href="/FileRelease/Details/@item.Id">@ReleaseIdFormat(@item.ReleaseNumber)</a></td>
                         <td>@item.Description</td>
                         <td>@item.LastModifiedBy</td>
                         <td>@item.ReleaseDate.ToString("dd.MM.yy hh:mm")</td>
