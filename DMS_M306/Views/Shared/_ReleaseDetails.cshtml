@@ -10,6 +10,21 @@
     </tr>
 }
 
+@helper ActivationStatus(bool isActive)
+{
+<tr>
+        <th width="160px">Status:</th>
+     @if (isActive)
+     {
+     <td>Active</td>
+     }
+     else
+     {
+     <td>Inactive</td>
+     }
+    </tr>
+}
+
 @helper ReleaseDownloadDetails(int releaseId)
 {
     <tr>
@@ -17,6 +32,8 @@
         <td><a href="/Download/DownloadRelease/@releaseId">Release</a></td>
     </tr>
 }
+
+
 
 @helper PhysicalStorageDetails(PhysicalStorageViewModel physicalStorage)
 {
@@ -41,13 +58,20 @@
             @DetailRow(nameof(Model.LastModifiedBy), Model.LastModifiedBy)
             @DetailRow(nameof(Model.ReleasedBy), Model.ReleasedBy)
             @DetailRow(nameof(Model.ReleaseDate), Model.ReleaseDate.ToString("dd.MM.yy"))
-            @if (Model.PhysicalStorage != null)   
+            @ActivationStatus(Model.IsActive)
+            @if (Model.PhysicalStorage != null)
             {
                 @PhysicalStorageDetails(Model.PhysicalStorage)
             }
             else
             {
+                if (Model.IsActive)
+                {
                 @ReleaseDownloadDetails(Model.Id)
+                }
             }
     </table>
+    <div class="panel-body">
+        <a href="/FileRelease/Edit/@Model.Id" class="btn btn-default">Edit</a>
+    </div>
 </div>

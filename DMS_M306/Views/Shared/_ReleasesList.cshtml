@@ -5,6 +5,18 @@
     @id.ToString("X4")
 }
 
+@helper StatusIcon(bool isActive)
+{
+if (isActive)
+{
+        <i class="glyphicon glyphicon-play text-success" data-toggle="tooltip" data-placement="Top" title="Active"></i>
+}
+else
+{
+        <i class="glyphicon glyphicon-stop text-danger" data-toggle="tooltip" data-placement="Top" title="Outdated"></i>
+}
+}
+
 @helper DownloadLink(int id)
 {
     <a href="/Download/DownloadRelease/@id">Download</a>
@@ -25,6 +37,7 @@
                 <th>Createt By</th>
                 <th>Release Date</th>
                 <th>Released By</th>
+                <th width="30px">Status</th>
                 @if (Model.PhysicalStorage == null)
                 {
                     <th></th>
@@ -40,11 +53,20 @@
                         <td>@item.LastModifiedBy</td>
                         <td>@item.ReleaseDate.ToString("dd.MM.yy hh:mm")</td>
                         <td>@item.ReleasedBy</td>
+                        <td class="text-center">@StatusIcon(item.IsActive)</td>
                         @if (Model.PhysicalStorage == null)
                         {
-                            <td>@DownloadLink(item.Id)</td>
+                            if (item.IsActive)
+                            {
+                                <td>@DownloadLink(item.Id)</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+
                         }
-                        
+
                     </tr>
                 }
             }

@@ -1,0 +1,53 @@
+﻿@model DMS_M306.ViewModels.FileRelease.EditReleaseViewModel
+
+@using (Html.BeginForm("Edit", "FileRelease", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>Edit File</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-horizontal">
+                @Html.HiddenFor(m => m.Id)
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.RootFileName, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.RootFileName, new { @class = "form-control", @disabled = "disabled" })
+                        @Html.ValidationMessageFor(model => model.RootFileName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ReleaseNumber, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.ReleaseNumber, new { @class = "form-control", @disabled = "disabled" })
+                        @Html.ValidationMessageFor(model => model.ReleaseNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    @Html.LabelFor(m => m.IsActive, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.CheckBoxFor(m => m.IsActive, new { @class = "" })
+                        @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <input type="submit" value="Save" class="btn btn-success" /> <a class="btn btn-default" href="/FileRelease/Details/@Model.Id">Back to details</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+}
+
+
+
+@section scripts
+{
+    <script type="text/javascript" src="@Url.Content("/Scripts/File/PhysicalStorage.js")"></script>
+}

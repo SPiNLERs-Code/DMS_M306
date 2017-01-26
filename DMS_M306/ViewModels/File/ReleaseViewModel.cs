@@ -18,5 +18,7 @@ namespace DMS_M306.ViewModels.File
         public DateTime ReleaseDate { get; set; }
 
         public string Description { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

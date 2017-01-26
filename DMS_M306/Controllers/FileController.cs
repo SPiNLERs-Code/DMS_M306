@@ -368,7 +368,8 @@ namespace DMS_M306.Controllers
                     LastModifiedBy = item.LastModifiedBy.FullName,
                     ReleaseDate = item.ReleaseDate,
                     ReleasedBy = item.ReleasedBy.FullName,
-                    ReleaseNumber = item.ReleaseNumber
+                    ReleaseNumber = item.ReleaseNumber,
+                    IsActive = item.IsActive
                 };
                 allReleases.Add(newReleaseViewModel);
             }

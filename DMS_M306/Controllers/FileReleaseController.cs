@@ -54,7 +54,8 @@ namespace DMS_M306.Controllers
                 RootFileId = release.RootFileId,
                 RootFileName = release.RootFile.Name,
                 ReleaseNumber = release.ReleaseNumber,
-                PhysicalStorage = GetPhysicalStorageViewModel(release.RootFile)
+                PhysicalStorage = GetPhysicalStorageViewModel(release.RootFile),
+                IsActive = release.IsActive
             };
             return View(vm);
         }
@@ -64,6 +65,48 @@ namespace DMS_M306.Controllers
         {
             return RedirectToAction("File", "Index");
         }
+
+        [HttpGet]
+        public ActionResult Edit(int? Id)
+        {
+            if(Id == null || Id == 0) return new HttpNotFoundResult();
+
+            var release = _releaseRepository.Find(Id);
+
+            EditReleaseViewModel vm = new EditReleaseViewModel()
+            {
+                Id = release.Id,
+                ReleaseNumber = release.ReleaseNumber.ToString("X4"),
+                RootFileName = release.RootFile.Name,
+                IsActive = release.IsActive
+            };
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(EditReleaseViewModel vm)
+        {
+            if(vm == null || vm.Id == 0) return new HttpNotFoundResult();
+
+            var release = _releaseRepository.Find(vm.Id);
+
+            if(release == null) return new HttpNotFoundResult();
+
+            release.IsActive = vm.IsActive;
+            try
+            {
+                _releaseRepository.Update(release);
+                _unitOfWork.SaveChanges();
+                TempData[GlobalConstants.AlertSuccessMessageKey] = GlobalConstants.ReleaseEditSuccess;
+            }
+            catch
+            {
+                TempData[GlobalConstants.AlertErrorMessageKey] = GlobalConstants.ReleaseEditError;
+            }
+            
+            return RedirectToAction("Details","FileRelease",new { Id = release.Id});
+        }
+
 
         [HttpGet]
         public ActionResult CreateFor(int? Id)
@@ -83,7 +126,7 @@ namespace DMS_M306.Controllers
         [HttpPost]
         public ActionResult CreateFor(CreateForViewModel vm)
         {
-            
+
             var file = _fileRepository.Get(x => x.Id == vm.FileId).FirstOrDefault();
             if (file == null) return new HttpNotFoundResult();
 
@@ -96,7 +139,8 @@ namespace DMS_M306.Controllers
                 LastModifiedBy = file.LastModifiedBy,
                 ReleaseDate = DateTime.UtcNow,
                 ReleasedBy = _userRepository.Get().FirstOrDefault(),
-                ReleaseNumber = releaseNumber
+                ReleaseNumber = releaseNumber,
+                IsActive = true
             };
 
             //_releaseRepository.Add(newRelease);
@@ -104,7 +148,7 @@ namespace DMS_M306.Controllers
 
             _fileRepository.Update(file);
             _unitOfWork.SaveChanges();
-            if(file.StorageType != Enums.FileStorageType.PhysicalStorage)
+            if (file.StorageType != Enums.FileStorageType.PhysicalStorage)
             {
                 string paht = GetFilePath(file);
                 string originalFile = file.StorageName + "." + file.FileEnding;
@@ -135,9 +179,9 @@ namespace DMS_M306.Controllers
             return GetFullFilePath(categoryName, storageName);
         }
 
-        private string GetFullFilePath(string categoryName,string fileName)
+        private string GetFullFilePath(string categoryName, string fileName)
         {
-            var stringForPath = "\\"+ FileStoreDirectory+"\\" + categoryName + "\\" + fileName;
+            var stringForPath = "\\" + FileStoreDirectory + "\\" + categoryName + "\\" + fileName;
             return Server.MapPath(stringForPath);
         }
     }

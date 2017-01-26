@@ -297,6 +297,7 @@
     <Compile Include="ViewModels\Category\CategoryViewModel.cs" />
     <Compile Include="ViewModels\Change\ChangeViewModel.cs" />
     <Compile Include="ViewModels\FileCategory\FileCategoryViewModel.cs" />
+    <Compile Include="ViewModels\FileRelease\EditReleaseViewModel.cs" />
     <Compile Include="ViewModels\File\CreateFileViewModel.cs" />
     <Compile Include="ViewModels\File\EditFileViewModel.cs" />
     <Compile Include="ViewModels\File\FileDetailsViewModel.cs" />
@@ -404,6 +405,7 @@
     <Content Include="Views\Shared\_ReleaseDetails.cshtml" />
     <Content Include="Views\File\Edit.cshtml" />
     <Content Include="Views\Shared\_ChangesList.cshtml" />
+    <Content Include="Views\FileRelease\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

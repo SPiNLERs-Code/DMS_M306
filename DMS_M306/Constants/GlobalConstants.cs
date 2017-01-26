@@ -25,5 +25,7 @@ namespace DMS_M306.Constants
         public const string FileEditNoChanges = "No changes where made.";
         public const string ReleaseCreateSuccess = "Release successfully created.";
         public const string ReleaseCreateError = "An error occurred while creating a Release.";
+        public const string ReleaseEditSuccess = "Release successfully updated.";
+        public const string ReleaseEditError = "An error occurred while updating a Release.";
     }
 }

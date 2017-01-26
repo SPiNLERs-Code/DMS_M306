@@ -39,8 +39,8 @@ namespace DMS_M306.Controllers
         {
             if (Id == 0) return null;
             var release = _releaseRepository.Get().FirstOrDefault(x => x.Id == Id);
-            if (release == null) return null;
-            if (release.RootFile == null) return null;
+            if (release == null || !release.IsActive) return null;
+            if (release.RootFile == null ) return null;
             var file = release.RootFile;
             string fileName = file.Name +"_Release"+ release.ReleaseNumber.ToString("X4")+"." + file.FileEnding;
             var fileBytes = GetBytesFromFile(file, release.ReleaseNumber);
