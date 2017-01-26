@@ -1,4 +1,5 @@
-﻿using DMS_M306.Interfaces;
+﻿using DMS_M306.Constants;
+using DMS_M306.Interfaces;
 using DMS_M306.Interfaces.Repositories;
 using DMS_M306.Models;
 using DMS_M306.Services;
@@ -111,6 +112,7 @@ namespace DMS_M306.Controllers
                 string newName = file.StorageName + "_" + releaseEnding + "." + file.FileEnding;
                 _fileService.CopyFile(paht, originalFile, newName);
             }
+            TempData[GlobalConstants.AlertSuccessMessageKey] = GlobalConstants.ReleaseCreateSuccess;
             return RedirectToAction("Details", "File", new { Id = file.Id });
         }
 

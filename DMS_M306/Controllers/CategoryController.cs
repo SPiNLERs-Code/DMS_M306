@@ -1,4 +1,5 @@
-﻿using DMS_M306.Interfaces;
+﻿using DMS_M306.Constants;
+using DMS_M306.Interfaces;
 using DMS_M306.Interfaces.Repositories;
 using DMS_M306.Models;
 using DMS_M306.ViewModels.Category;
@@ -12,11 +13,13 @@ namespace DMS_M306.Controllers
     {
         private readonly IFileCategoryRepository _fileCategoryRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private bool _isDeleteEnabled;
 
         public CategoryController(IFileCategoryRepository fileCategoryRepository, IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             _fileCategoryRepository = fileCategoryRepository;
+            _isDeleteEnabled = false;
         }
 
         [HttpGet]
@@ -48,15 +51,27 @@ namespace DMS_M306.Controllers
                 Name = vm.Name,
                 Description = vm.Description
             };
-            _fileCategoryRepository.Add(fileCategory);
-            _unitOfWork.SaveChanges();
-
+            try
+            {
+                _fileCategoryRepository.Add(fileCategory);
+                _unitOfWork.SaveChanges();
+                TempData[GlobalConstants.AlertSuccessMessageKey] = GlobalConstants.CategoryCreateSuccess;
+            }
+            catch
+            {
+                TempData[GlobalConstants.AlertErrorMessageKey] = GlobalConstants.CategoryCreateError;
+            }
             return RedirectToAction("index");
         }
 
         [HttpGet]
         public ActionResult Delete(int id)
         {
+            if (_isDeleteEnabled == false)
+            {
+                TempData[GlobalConstants.AlertErrorMessageKey] = GlobalConstants.CategoryDeleteDisabledMessage;
+                return RedirectToAction("Index");
+            }
             var category = _fileCategoryRepository.Get(x => x.Id == id).FirstOrDefault();
             if(category == null)
             {
@@ -74,13 +89,18 @@ namespace DMS_M306.Controllers
         [HttpPost]
         public ActionResult Delete(CategoryViewModel vm)
         {
+            if(_isDeleteEnabled == false)
+            {
+                TempData[GlobalConstants.AlertErrorMessageKey] = GlobalConstants.CategoryDeleteDisabledMessage;
+                return RedirectToAction("Index");
+            }
             var category = _fileCategoryRepository.Get(x => x.Id == vm.Id).FirstOrDefault();
             if(category != null)
             {
                 _fileCategoryRepository.Delete(category);
                 _unitOfWork.SaveChanges();
             }
-           
+            TempData[GlobalConstants.AlertSuccessMessageKey] = GlobalConstants.CategoryDeleteSuccess;
             return RedirectToAction("Index");
         }
     }

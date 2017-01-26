@@ -1,4 +1,5 @@
-﻿using DMS_M306.Enums;
+﻿using DMS_M306.Constants;
+using DMS_M306.Enums;
 using DMS_M306.Helpers;
 using DMS_M306.Interfaces;
 using DMS_M306.Interfaces.Repositories;
@@ -122,7 +123,12 @@ namespace DMS_M306.Controllers
                 }
             }
 
-            if(!isFileChanged && !isContentChanged) return RedirectToAction("Details", "File", new { @Id = file.Id });
+            if (!isFileChanged && !isContentChanged)
+            {
+                TempData[GlobalConstants.AlertInfoMessageKey] = GlobalConstants.FileEditNoChanges;
+                return RedirectToAction("Details", "File", new { @Id = file.Id });
+            }
+            
 
             Change change = new Change()
             {
@@ -131,17 +137,30 @@ namespace DMS_M306.Controllers
                 Description = GetChangeDescription(isFileChanged, isContentChanged)
             };
 
-            file.Changes.Add(change);
-
-            _fileRepository.Update(file);
-            _unitOfWork.SaveChanges();
-
+            try
+            {
+                file.Changes.Add(change);
+                _fileRepository.Update(file);
+                _unitOfWork.SaveChanges();
+            }
+            catch
+            {
+                TempData[GlobalConstants.AlertErrorMessageKey] = GlobalConstants.FileEditError;
+                return RedirectToAction("Index");
+            }
+            
+            TempData[GlobalConstants.AlertSuccessMessageKey] = GlobalConstants.FileEditSuccess;
             return RedirectToAction("Details", "File", new { @Id = file.Id });
         }
 
         [HttpGet]
         public ActionResult Create()
         {
+            if(_fileCategoryRepository.Get().Count() == 0)
+            {
+                this.TempData[GlobalConstants.AlertInfoMessageKey] = GlobalConstants.CreateCategoryFirstMessage;
+                return RedirectToAction("Create", "Category");
+            }
             var vm = new CreateFileViewModel()
             {
                 Categories = GetCategories()
@@ -178,6 +197,7 @@ namespace DMS_M306.Controllers
                 CreateFile(createFileViewModel, fileAndFolderName, category, ending);
             }
 
+            TempData[GlobalConstants.AlertSuccessMessageKey] = GlobalConstants.FileCreateSuccess;
             return RedirectToAction("Index", "Home");
         }
 

@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using DMS_M306.Constants
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -29,6 +31,41 @@
         </div>
     </div>
     <div class="container body-content">
+
+        @{
+            if (@TempData[GlobalConstants.AlertErrorMessageKey] != null)
+            {
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    @TempData[GlobalConstants.AlertErrorMessageKey]
+                </div>
+            }
+
+            if (@TempData[GlobalConstants.AlertWarnMessageKey] != null)
+            {
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    @TempData[GlobalConstants.AlertWarnMessageKey]
+                </div>
+            }
+
+            if (@TempData[GlobalConstants.AlertInfoMessageKey] != null)
+            {
+                <div class="alert alert-info alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    @TempData[GlobalConstants.AlertInfoMessageKey]
+                </div>
+            }
+
+            if (@TempData[GlobalConstants.AlertSuccessMessageKey] != null)
+            {
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    @TempData[GlobalConstants.AlertSuccessMessageKey]
+                </div>
+            }
+        }
+
         @RenderBody()
         <hr />
         <footer>
