@@ -57,7 +57,7 @@
             @DetailRow(nameof(Model.Description), Model.Description)
             @DetailRow(nameof(Model.LastModifiedBy), Model.LastModifiedBy)
             @DetailRow(nameof(Model.ReleasedBy), Model.ReleasedBy)
-            @DetailRow(nameof(Model.ReleaseDate), Model.ReleaseDate.ToString("dd.MM.yy"))
+            @DetailRow(nameof(Model.ReleaseDate), Model.ReleaseDate.ToString("dd.MM.yy HH:mm"))
             @ActivationStatus(Model.IsActive)
             @if (Model.PhysicalStorage != null)
             {

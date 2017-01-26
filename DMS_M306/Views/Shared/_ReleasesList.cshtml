@@ -51,7 +51,7 @@ else
                         <td><a href="/FileRelease/Details/@item.Id">@ReleaseIdFormat(@item.ReleaseNumber)</a></td>
                         <td>@item.Description</td>
                         <td>@item.LastModifiedBy</td>
-                        <td>@item.ReleaseDate.ToString("dd.MM.yy hh:mm")</td>
+                        <td>@item.ReleaseDate.ToString("dd.MM.yy HH:mm")</td>
                         <td>@item.ReleasedBy</td>
                         <td class="text-center">@StatusIcon(item.IsActive)</td>
                         @if (Model.PhysicalStorage == null)
