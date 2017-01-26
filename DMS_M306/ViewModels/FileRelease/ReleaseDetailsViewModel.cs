@@ -8,6 +8,7 @@ namespace DMS_M306.ViewModels.FileRelease
 {
     public class ReleaseDetailsViewModel
     {
+        private DateTime _releaseDate;
         public int Id { get; set; }
 
         public int ReleaseNumber { get; set; }
@@ -35,7 +36,17 @@ namespace DMS_M306.ViewModels.FileRelease
 
         public string ReleasedBy { get; set; }
 
-        public DateTime ReleaseDate { get; set; }
+        public DateTime ReleaseDate
+        {
+            get
+            {
+                return _releaseDate.ToLocalTime();
+            }
+            set
+            {
+                _releaseDate = value;
+            }
+        }
 
         public bool IsActive { get; set; }
     }

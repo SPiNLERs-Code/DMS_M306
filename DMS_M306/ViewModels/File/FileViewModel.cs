@@ -14,15 +14,38 @@ namespace DMS_M306.ViewModels.File
 {
     public class FileViewModel
     {
+        private DateTime _createDate;
+        private DateTime _lastModified;
+
         public int Id { get; set; }
 
         public string Name { get; set; }
-        
+
         public string Description { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public DateTime CreateDate
+        {
+            get
+            {
+                return _createDate.ToLocalTime();
+            }
+            set
+            {
+                _createDate = value;
+            }
+        }
 
-        public DateTime LastModified { get; set; }
+        public DateTime LastModified
+        {
+            get
+            {
+                return _lastModified.ToLocalTime();
+            }
+            set
+            {
+                _lastModified = value;
+            }
+        }
 
         public string CreatedBy { get; set; }
 

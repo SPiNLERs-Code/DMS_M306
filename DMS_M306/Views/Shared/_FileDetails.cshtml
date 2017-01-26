@@ -41,9 +41,9 @@
             @DetailRow(nameof(Model.Status), Model.Status.ToString())
             @DetailRow(nameof(Model.StorageType), Model.StorageType.ToString())
             @DetailRow(nameof(Model.LastModifiedBy), Model.LastModifiedBy)
-            @DetailRow(nameof(Model.LastModified), Model.LastModified.ToString("dd.MM.yy"))
+            @DetailRow(nameof(Model.LastModified), Model.LastModified.ToString("dd.MM.yy hh:mm"))
             @DetailRow(nameof(Model.CreatedBy), Model.CreatedBy)
-            @DetailRow(nameof(Model.CreateDate), Model.CreateDate.ToString("dd.MM.yy"))
+            @DetailRow(nameof(Model.CreateDate), Model.CreateDate.ToString("dd.MM.yy hh:mm"))
             @if (Model.PhysicalStorage != null)
             {
                 @PhysicalStorageDetails(Model.PhysicalStorage)
