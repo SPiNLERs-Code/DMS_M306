@@ -11,13 +11,13 @@ using DMS_M306.ViewModels.PhysicalStorage;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
 namespace DMS_M306.Controllers
 {
+    [Authorize]
     public class FileController : Controller
     {
         private readonly IFileRepository _fileRepository;
@@ -60,7 +60,7 @@ namespace DMS_M306.Controllers
                 PhysicalStorageCabinetId = file.PhysicalStorage != null ? file.PhysicalStorage.CabinetId : "",
                 PhysicalStorageRoomId = file.PhysicalStorage != null ? file.PhysicalStorage.RoomId : "",
                 Status = file.Status,
-                StorageType = file.StorageType
+                StorageType = file.StorageType,
             };
             vm = GetFullEditViewModel(vm, file, "");
             return View(vm);
@@ -91,7 +91,7 @@ namespace DMS_M306.Controllers
             isContentChanged = IsContentChanged(file, vm);
 
             DateTime dateNow = DateTime.UtcNow;
-            Models.User currentUser = _userRepository.Get().FirstOrDefault();
+            var currentUser = UserHelper.GetUserFromUserName(HttpContext.User.Identity.Name, _userRepository);
 
             if (isContentChanged)
             {
@@ -220,7 +220,7 @@ namespace DMS_M306.Controllers
 
         private void CreateFile(CreateFileViewModel vm, string storeName, FileCategory category, string dataEnding = "")
         {
-            User currentUser = _userRepository.Get().FirstOrDefault();
+            User currentUser = UserHelper.GetUserFromUserName(HttpContext.User.Identity.Name, _userRepository);
             Models.File file = new Models.File()
             {
                 Category = category,
@@ -442,5 +442,7 @@ namespace DMS_M306.Controllers
             if (hasInfosChanged) return "Infos changed";
             return "Nothing changed";
         }
+
+        
     }
 }

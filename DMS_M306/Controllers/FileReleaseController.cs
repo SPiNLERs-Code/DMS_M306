@@ -1,20 +1,19 @@
 ﻿using DMS_M306.Constants;
+using DMS_M306.Helpers;
 using DMS_M306.Interfaces;
 using DMS_M306.Interfaces.Repositories;
 using DMS_M306.Models;
 using DMS_M306.Services;
-using DMS_M306.ViewModels.File;
 using DMS_M306.ViewModels.FileRelease;
 using DMS_M306.ViewModels.PhysicalStorage;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DMS_M306.Controllers
 {
+    [Authorize]
     public class FileReleaseController : Controller
     {
         private readonly IFileRepository _fileRepository;
@@ -138,7 +137,7 @@ namespace DMS_M306.Controllers
                 Description = vm.Description,
                 LastModifiedBy = file.LastModifiedBy,
                 ReleaseDate = DateTime.UtcNow,
-                ReleasedBy = _userRepository.Get().FirstOrDefault(),
+                ReleasedBy = UserHelper.GetUserFromUserName(HttpContext.User.Identity.Name,_userRepository),
                 ReleaseNumber = releaseNumber,
                 IsActive = true
             };

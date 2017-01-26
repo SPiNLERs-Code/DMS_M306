@@ -1,4 +1,5 @@
-﻿using DMS_M306.Constants;
+﻿using DMS_M306.Attributes;
+using DMS_M306.Constants;
 using DMS_M306.Interfaces;
 using DMS_M306.Interfaces.Repositories;
 using DMS_M306.Models;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace DMS_M306.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
         private readonly IFileCategoryRepository _fileCategoryRepository;

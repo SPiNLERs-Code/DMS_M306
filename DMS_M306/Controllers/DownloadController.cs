@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace DMS_M306.Controllers
 {
+    [Authorize]
     public class DownloadController : Controller
     {
         private readonly IFileRepository _fileRepository;

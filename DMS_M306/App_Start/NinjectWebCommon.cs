@@ -89,6 +89,9 @@ namespace DMS_M306.App_Start
             kernel.Bind<IUserRepository>().To<UserRepository>().InCallScope();
             kernel.Bind<IPhysicalStorageRepository>().To<PhysicalStorageRepository>().InCallScope();
             kernel.Bind<IFileReleaseRepository>().To<FileReleaseRepository>().InCallScope();
+
+            kernel.Bind<IUserManager>().To<UserManager>().InCallScope();
+
             kernel.Bind<ICodeService>().To<QRCodeService>().InCallScope();
         }
     }

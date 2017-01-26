@@ -48,6 +48,10 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvHelper.2.16.3.0\lib\net45\CsvHelper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FoolproofValidation, Version=0.9.5851.39121, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Foolproof.0.9.4518\lib\net45\FoolproofValidation.dll</HintPath>
       <Private>True</Private>
@@ -244,6 +248,7 @@
     <Compile Include="DatabaseContext\DbContextManager.cs" />
     <Compile Include="DatabaseContext\DMSEntities.cs" />
     <Compile Include="DatabaseContext\UnitOfWork.cs" />
+    <Compile Include="DatabaseContext\UserManager.cs" />
     <Compile Include="Enums\FileClass.cs" />
     <Compile Include="Enums\FileStatus.cs" />
     <Compile Include="Enums\FileStorageType.cs" />
@@ -254,9 +259,11 @@
     </Compile>
     <Compile Include="Helpers\QRCodeHelper.cs" />
     <Compile Include="Helpers\TimeHelper.cs" />
+    <Compile Include="Helpers\UserHelper.cs" />
     <Compile Include="Interfaces\IDbContextFactory.cs" />
     <Compile Include="Interfaces\IDbContextManager.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Interfaces\IUserManager.cs" />
     <Compile Include="Interfaces\Repositories\IChangeRepository.cs" />
     <Compile Include="Interfaces\Repositories\IFileCategoryRepository.cs" />
     <Compile Include="Interfaces\Repositories\IFileRepository.cs" />
@@ -265,12 +272,10 @@
     <Compile Include="Interfaces\Repositories\IRepository.cs" />
     <Compile Include="Interfaces\Repositories\IUserRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Change.cs" />
     <Compile Include="Models\File.cs" />
     <Compile Include="Models\FileCategory.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Mapping\ChangeMap.cs" />
     <Compile Include="Models\Mapping\FileCategoryMap.cs" />
     <Compile Include="Models\Mapping\FileMap.cs" />
@@ -293,6 +298,8 @@
     <Compile Include="Services\Interfaces\IFileService.cs" />
     <Compile Include="Services\QRCodeService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\Account\CreateUserViewModel.cs" />
+    <Compile Include="ViewModels\Account\LoginViewModel.cs" />
     <Compile Include="ViewModels\Category\CategoriesViewModel.cs" />
     <Compile Include="ViewModels\Category\CategoryViewModel.cs" />
     <Compile Include="ViewModels\Change\ChangeViewModel.cs" />
@@ -372,10 +379,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -406,6 +410,7 @@
     <Content Include="Views\File\Edit.cshtml" />
     <Content Include="Views\Shared\_ChangesList.cshtml" />
     <Content Include="Views\FileRelease\Edit.cshtml" />
+    <Content Include="Views\Account\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -13,6 +13,7 @@ using System.Web.Mvc;
 
 namespace DMS_M306.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private IFileRepository _fileRepository;
