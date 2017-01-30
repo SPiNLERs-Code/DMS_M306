@@ -29,6 +29,21 @@ namespace DMS_M306.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            var firstUser = _userRepository.Get().FirstOrDefault();
+            if (firstUser == null)
+            {
+                Models.User user = new Models.User()
+                {
+                    Email = "demo.user@dms.com",
+                    FirstName = "Demo",
+                    LastName = "User",
+                    Password = "12345",
+                    Role = Enums.UserRoles.Management,
+                    UserName = "demo.user"
+                };
+                _userRepository.Add(user);
+                _unitOfWork.SaveChanges();
+            }
             return View();
         }
 
@@ -41,21 +56,6 @@ namespace DMS_M306.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var firstUser = _userRepository.Get().FirstOrDefault();
-                if(firstUser == null)
-                {
-                    Models.User user = new Models.User()
-                    {
-                        Email = "demo.user@dms.com",
-                        FirstName = "Demo",
-                        LastName = "User",
-                        Password = "12345",
-                        Role = Enums.UserRoles.Management,
-                        UserName = "demo.user"
-                    };
-                    _userRepository.Add(user);
-                    _unitOfWork.SaveChanges();
-                }
                 return View(model);
             }
 
