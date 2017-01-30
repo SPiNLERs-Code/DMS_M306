@@ -1,5 +1,4 @@
 ﻿@model DMS_M306.ViewModels.File.CreateFileViewModel
-@using DMS_M306.Helpers
 
 
 @helper DisplayErrorString(string ErrorString)
@@ -108,10 +107,6 @@ if (!String.IsNullOrWhiteSpace(ErrorString))
     </div>
 }
 
-@if (Model.Name != "" && Model.Name != null)
-{
-    @Html.GenerateQrCode(Model.Name, "Code", 400, 1)
-}
 
 @section scripts
 {

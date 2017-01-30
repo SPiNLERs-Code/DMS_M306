@@ -18,6 +18,8 @@ namespace DMS_M306.ViewModels.File
 
         [Required]
         [DisplayName("Name:")]
+        [RegularExpression(@"^[\w\-. ]+$",
+         ErrorMessage = "Only valide Filenames are allowed.")]
         public string Name { get; set; }
 
         [Required]
