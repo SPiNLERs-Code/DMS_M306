@@ -6,6 +6,7 @@ using DMS_M306.Interfaces;
 using DMS_M306.ViewModels.Account;
 using DMS_M306.Models;
 using DMS_M306.Interfaces.Repositories;
+using System.Linq;
 
 namespace DMS_M306.Controllers
 {
@@ -40,6 +41,21 @@ namespace DMS_M306.Controllers
         {
             if (!ModelState.IsValid)
             {
+                var firstUser = _userRepository.Get().FirstOrDefault();
+                if(firstUser == null)
+                {
+                    Models.User user = new Models.User()
+                    {
+                        Email = "demo.user@dms.com",
+                        FirstName = "Demo",
+                        LastName = "User",
+                        Password = "12345",
+                        Role = Enums.UserRoles.Management,
+                        UserName = "demo.user"
+                    };
+                    _userRepository.Add(user);
+                    _unitOfWork.SaveChanges();
+                }
                 return View(model);
             }
 

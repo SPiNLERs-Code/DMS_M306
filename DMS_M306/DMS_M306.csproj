@@ -240,7 +240,6 @@
     <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\FileReleaseController.cs" />
     <Compile Include="Controllers\ScanController.cs" />
     <Compile Include="DatabaseContext\CreateDatabaseIfModelChanges.cs" />
